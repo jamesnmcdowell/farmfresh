@@ -1,16 +1,20 @@
-const express = require('express');
-const app = express();
-const fs = require('fs');
-const db = require('./database.js');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
-const signature = '@!3$%%^&1ed^&*!l@#^&***()R0441';
-const bodyParser = require('body-parser');
-const port = process.env.PORT || 3000;
+// const db = require('./database.js');
 
-//db queries
-let createUser = (user) =>
-  db.query(`INSERT into users (email, password, username, firstname, lastname) VALUES ('${user.email}', '${user.password}', '${user.username}', '${user.firstname}', '${user.lastname}') RETURNING id;`)
+const koa = require('koa'); 
+const koaRouter =  require('koa-router'); 
+const koaBody = require('koa-bodyparser'); 
+const { graphqlKoa: graphql, 
+        graphiqlKoa: graphiql
+      } = require('apollo-server-koa');
+const signature = '@!3$%%^&1ed^&*!l@#^&***()R0441';
+const koaJWT = require('koa-jwt');
+let jwtParser = koaJWT({ secret: signature });
+const bcrypt = require('bcrypt');
+const schema = require('./schema');
+
+const app = new koa();
+const api = new koaRouter();
+const port = process.env.PORT || 5000;
 
 //authorization
 let createToken = (userId) => {
@@ -30,15 +34,6 @@ let validateCredentials = (res, email, password) => {
   .catch(error => res.send(error));
 }
 
-let getUserDataQuery = (userId) =>
-  db.query(`SELECT * from users where id = ${userId};`)
-    
-let getUserData = async (req, res) => {
-  let token = req.headers.authorization;
-  let result = tokenValidator(token);
-  let userData = await getUserDataQuery(result.userId);
-  res.send(userData);
-}
 
 let tokenValidator = (token) =>
   jwt.verify(token, signature)
@@ -69,77 +64,10 @@ let getMyRecipes = (req, res) => {
   )
 }
 
-let getMyCookBooks = (req, res) => {
-  let authorization = req.headers.authorization;
-  let payload = jwt.verify(authorization, signature);
-  return(
-      getMyCookBooksFromDB(payload.userId)
-      .then(cookbooks => res.send(cookbooks))
-  )
-}
+api.post('/graphql', koaBody(), graphql({ schema }));
+api.get('/graphql', graphql({ schema}));
+api.get('/graphiql', graphiql({ endpointURL: '/graphql' }));
 
-let postRecipe = (req, res) => {
-  let recipe = req.body
-  console.log('recipe: ', recipe);
-  let token = req.headers.authorization;
-  let validation = tokenValidator(token);
-  validation &&
-    postRecipeToDB(recipe, validation.userId)
-    .then(response => res.send(response))
-    .catch(err => res.send(err))
-}
-
-let postCookBook = (req, res) => {
-  let cookbook = req.bodyParser
-  let token = req.headers.authorization;
-  let validation = tokenValidator(token);
-  return (
-    createCookBookInDB(cookbook)
-    .then(response => res.send(response))
-    .catch(err => res.send(err))
-  )
-}
-
-let getRecipeByID = async (req, res) => {
-  if (!req.headers || !req.headers.id) throw new Error('please send an id');
-  res.send(await getRecipeFromDB(req.headers.id))
-  
-}
-
-let searchRecipes = async (req, res) => {
-  try {
-    let recipes = await db.query(`SELECT * from recipes;`);
-    let searchString = req.body.searchString.slice(1);
-    res.send((searchString === "")? recipes : recipes.filter(c => c.title.toLowerCase().match(searchString.toLowerCase())));
-  } catch (error) {
-    throw new Error('this is not working out for us');
-  }
-}
-
-//Middleware
-app.use(bodyParser.json());
-app.use(express.static('build'));
-app.get('/', function (req, res) {
-  res.send("Welcome to NodeJS app on Heroku!");
-});
-app.get('/get-user', getUserData)
-app.get('/all-categories', getAllCategories)
-app.get('/recipe-by-category', getRecipesByCategories)
-app.get('/all-ingredients', getAllIngredients)
-app.get('/recipes', getMyRecipes)
-app.post('/recipes', postRecipe)
-app.get('/all-recipes', getAllRecipes)
-app.get('/cookbooks', getMyCookBooks)
-app.post('/cookbooks', postCookBook)
-app.post('/users', postUser)
-app.post('/signin', signIn)
-app.get('/recipe', getRecipeByID)
-app.get('/search', searchTerms)
-app.post('/search-recipes', searchRecipes)
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack)
-  res.status(500).send('Something broke!')
-})
-
-app.listen(port, () => console.log(`Recipes running on ${port}`))
+app.use(api.routes());
+app.use(api.allowedMethods());
+app.listen(port, () => console.log(`farmfresh running on ${port}`))
