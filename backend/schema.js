@@ -1,36 +1,42 @@
 const { find, filter } = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
+     
 
 const typeDefs = `
-  type Author {
+  type Category {
     id: Int!
-    firstName: String
-    lastName: String
-    posts: [Post]
+    name: String
+    items: [Item]
   }
 
-  type Post {
+   type Item {
     id: Int!
-    title: String
-    author: Author
+    name: String
+    description: String
+    price: String
+    image_url: String
+    vendor_id: Int!  
+    category_id: Int!  
+    unit_of_measure: String
+    category: Category
   }
 
   type Query {
-    posts: [Post]
-    author(id: Int!): Author
+    items: [Item]
+    category(id: Int!): Category
   }
 `;
 
 const resolvers = {
     Query: {
-        posts: () => posts,
-        author: (_, args) => find(authors, { id: args.id }),
+        items: () => db.items,
+        category: (_, args) => find(db.categories, { id: args.id }),
     },
-    Author: {
-        posts: (author) => filter(posts, { authorId: author.id }),
+    Category: {
+        items: (category) => filter(db.items, { category_id: category.id }),
     },
-    Post: {
-        author: (post) => find(authors, { id: post.authorId }),
+    Item: {
+        category: (item) => find(db.categories, { id: item.category_id }),
     },
 };
 
@@ -38,19 +44,6 @@ module.exports = makeExecutableSchema({
     typeDefs,
     resolvers,
 });
-
-const authors = [
-    { id: 1, firstName: 'Tom', lastName: 'Coleman' },
-    { id: 2, firstName: 'Sashko', lastName: 'Stubailo' },
-    { id: 3, firstName: 'Mikhail', lastName: 'Novikov' },
-];
-
-const posts = [
-    { id: 1, authorId: 1, title: 'Introduction to GraphQL' },
-    { id: 2, authorId: 2, title: 'GraphQL Rocks' },
-    { id: 3, authorId: 2, title: 'Advanced GraphQL' },
-    { id: 4, authorId: 3, title: 'Launchpad is Cool' },
-];
 
 const db = {
     "categories": [

@@ -11,6 +11,7 @@ const koaJWT = require('koa-jwt');
 let jwtParser = koaJWT({ secret: signature });
 const bcrypt = require('bcrypt');
 const schema = require('./schema');
+const { koa: middleware } = require('graphql-voyager/middleware');
 
 const app = new koa();
 const api = new koaRouter();
@@ -67,6 +68,9 @@ let getMyRecipes = (req, res) => {
 api.post('/graphql', koaBody(), graphql({ schema }));
 api.get('/graphql', graphql({ schema}));
 api.get('/graphiql', graphiql({ endpointURL: '/graphql' }));
+api.all('/voyager', middleware({
+  endpointUrl: '/graphql'
+}));
 
 app.use(api.routes());
 app.use(api.allowedMethods());
