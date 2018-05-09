@@ -16,6 +16,15 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: farmfreshgraph; Type: SCHEMA; Schema: -; Owner: chrisgoodell
+--
+
+CREATE SCHEMA farmfreshgraph;
+
+
+ALTER SCHEMA farmfreshgraph OWNER TO chrisgoodell;
+
+--
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -114,7 +123,6 @@ ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
 
 CREATE TABLE public.locations (
     id integer NOT NULL,
-    user_id integer,
     name character varying NOT NULL,
     description character varying,
     address character varying NOT NULL,
@@ -131,7 +139,8 @@ CREATE TABLE public.locations (
     thursday boolean NOT NULL,
     friday boolean NOT NULL,
     saturday boolean NOT NULL,
-    sunday boolean NOT NULL
+    sunday boolean NOT NULL,
+    vendor_id integer
 );
 
 
@@ -203,7 +212,8 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.vendors (
     id integer NOT NULL,
     user_id integer,
-    images text[]
+    images text[],
+    name character varying
 );
 
 
@@ -299,8 +309,8 @@ COPY public.items (id, name, description, quantity, vendor_id, category_id, unit
 -- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.locations (id, user_id, name, description, address, city, state, zip, geocode, starttime, endtime, validdays, monday, tuesday, wednesday, thursday, friday, saturday, sunday) FROM stdin;
-1	1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	33.788181,-84.371338	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t
+COPY public.locations (id, name, description, address, city, state, zip, geocode, starttime, endtime, validdays, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id) FROM stdin;
+1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	33.788181,-84.371338	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	\N
 \.
 
 
@@ -318,8 +328,8 @@ COPY public.users (id, email, password, firstname, lastname) FROM stdin;
 -- Data for Name: vendors; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.vendors (id, user_id, images) FROM stdin;
-1	1	\N
+COPY public.vendors (id, user_id, images, name) FROM stdin;
+1	1	\N	\N
 \.
 
 
@@ -415,11 +425,11 @@ ALTER TABLE ONLY public.items
 
 
 --
--- Name: locations locations_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: locations locations_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
 --
 
 ALTER TABLE ONLY public.locations
-    ADD CONSTRAINT locations_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
+    ADD CONSTRAINT locations_vendor_id_fkey FOREIGN KEY (vendor_id) REFERENCES public.vendors(id);
 
 
 --
