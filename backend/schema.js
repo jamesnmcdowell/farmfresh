@@ -15,15 +15,19 @@ const typeDefs = `
     description: String
     price: String
     image_url: String
-    vendor_id: Int!  
-    category_id: Int!  
+    vendor_id: Int!   
     unit_of_measure: String
     category: Category
+  }
+  type Location {
+    name: String
+    description: String
   }
 
   type Query {
     items: [Item]
     category(id: Int!): Category
+    locations: [Location]
   }
 `;
 
@@ -31,6 +35,7 @@ const resolvers = {
     Query: {
         items: () => db.items,
         category: (_, args) => find(db.categories, { id: args.id }),
+        locations: () => db.locations
     },
     Category: {
         items: (category) => filter(db.items, { category_id: category.id }),
@@ -38,6 +43,8 @@ const resolvers = {
     Item: {
         category: (item) => find(db.categories, { id: item.category_id }),
     },
+    Location: { 
+    }
 };
 
 module.exports = makeExecutableSchema({
@@ -184,3 +191,10 @@ const db = {
         }
     ]
 }
+
+
+
+
+
+
+
