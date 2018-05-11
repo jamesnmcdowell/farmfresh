@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Shell from './Shell';
 
 class HomepageScreen extends Component {
     componentDidMount() {
@@ -9,10 +10,20 @@ class HomepageScreen extends Component {
 
     render() {
         return (
-            <h1> Homepage Screen</h1>
+            <Shell>
+                <h1> Homepage Screen</h1>
+            </Shell>
         );
    
     }
 }
 
-export default HomepageScreen; 
+let mapStateToProps = (state, props) => ({
+    menuOpen: state.menuOpen,
+});
+
+let HomepageScreenState = connect(
+    mapStateToProps,
+)(HomepageScreen);
+
+export default HomepageScreenState;

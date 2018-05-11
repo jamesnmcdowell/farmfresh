@@ -48,13 +48,15 @@ const typeDefs = `
 
 const resolvers = {
     Query: {
+      
         vendors: () => db.vendors,
         categories: () => db.categories,
         users: () => db.users,
+        
         items: () => db.items,
         category: (_, args) => find(db.categories, { id: args.id }),
         locations: () => db.locations,
-        vendor: () => (_, args) => find(db.vendors, { id: args.id }),
+        vendor: (_, args) => find(db.vendors, { id: args.id }),
         // users: () => (_, args) => find(db.users, { id: args.id }),
     },
     Category: {
@@ -72,6 +74,7 @@ const resolvers = {
         vendor: (location) => find(db.vendors, { id: location.vendor_id })
     },
     User: {
+
     }
     
 };
