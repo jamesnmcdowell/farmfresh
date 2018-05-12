@@ -14,36 +14,36 @@ let MobileMenu = ({menuOpen}) => {
                 </a>
             </li>
             <li>
-                <hr className="_1qenmrf"/>
+                <hr/>
 		    </li>
             <li>
                 <a href="/" >
                     <div>
-                        <span>Home</span>
+                        <span>Become a Vendor</span>
                     </div>
                 </a>
             </li>
             <li>
-                <hr className="_1qenmrf" />
+                <hr />
             </li>
             <li>
                 <a href="/" >
                     <div>
-                        <span>Home</span>
+                        <span>Sign Up</span>
                     </div>
                 </a>
             </li>
             <li>
                 <a href="/" >
                     <div>
-                        <span>Home</span>
+                        <span>Sign In</span>
                     </div>
                 </a>
             </li> 
             <li>
                 <a href="/" >
                     <div>
-                        <span>Home</span>
+                        <span>About</span>
                     </div>
                 </a>
             </li>             

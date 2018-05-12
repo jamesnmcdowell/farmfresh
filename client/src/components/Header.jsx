@@ -5,8 +5,10 @@ import menuDownIcon from '../assets/menu-open.svg';
 import SearchBar from './SearchBar';
 import { connect } from 'react-redux';
 import { toggleMobileMenu } from '../redux/actions';
+import { toggleLoginModal } from '../redux/actions';
+import { checkForm } from '../redux/actions';
 
-let Header = ({ menuOpen, toggleMobileMenu }) =>
+let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm }) =>
     <div className="nav-bar">
         <div className="flex-nav">
             <div onClick={() => {toggleMobileMenu()}} className="logo-container" >
@@ -19,12 +21,12 @@ let Header = ({ menuOpen, toggleMobileMenu }) =>
                 <Link to="/login" className="nav-link">
                     <span> Become a Vendor</span>
                 </Link>
-                <Link to="/" className="nav-link">
+                <div onClick={() => { toggleLoginModal(); checkForm('signUp'); }} className="nav-link">
                     <span> Sign up</span>
-                </Link>
-                <Link to="/cart" className="nav-link">
+                </div>
+                <div onClick={() => { toggleLoginModal(); checkForm('signIn'); }} className="nav-link">
                     <span> Sign in</span>
-                </Link>
+                </div>
             </div>
         </div>
     </div>
@@ -32,8 +34,12 @@ let Header = ({ menuOpen, toggleMobileMenu }) =>
 let mapStateToProps = (state, props) => ({
     menuOpen: state.menuOpen,
 });
-let mapDispatchToProps = dispatch => ({ toggleMobileMenu: booleanVal => dispatch(toggleMobileMenu(booleanVal)) })
-
+let mapDispatchToProps = dispatch => (
+    { toggleMobileMenu: booleanVal => dispatch(toggleMobileMenu(booleanVal)),
+      toggleLoginModal: booleanVal => dispatch(toggleLoginModal(booleanVal)),
+      checkForm: string => dispatch(checkForm(string))
+    }
+);
 
 let HeaderState = connect(
     mapStateToProps,
