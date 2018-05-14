@@ -15,6 +15,28 @@ export const checkForm = string =>
         type: checkForm.toString(),
         payload: string
     });
+
+export const updateUserLocationAC = async (dispatch) => {
+    try {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            let userLocation = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            localStorage.setItem('userLocation', JSON.stringify(userLocation) );
+            console.log(userLocation);
+            dispatch({
+                type: updateUserLocationAC.toString(),
+                payload: userLocation
+            });
+        });
+        
+        
+    } catch (e) {
+        console.error(e);
+    }
+};  
+
 export const updateVendorByIdAC = async (dispatch, id) => {
     let queryVendorById = `{
         vendor(id: ${id}) {
@@ -131,3 +153,4 @@ toggleLoginModal.toString = () => 'TOGGLE_LOGIN_MODAL';
 checkForm.toString = () => 'CHECK_FORM';
 updateProductsAC.toString = () => 'UPDATE_PRODUCTS_AC';
 updateVendorByIdAC.toString = () => 'UPDATE_VENDOR_BY_ID_AC';
+updateUserLocationAC.toString = () => 'UPDATE_USER_LOCATION_AC';
