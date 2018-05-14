@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import GoogleApiWrapper from './MapContainer';
+import MyMapComponent from './Map';
 
 class MapScreen extends Component {
     componentDidMount() {
@@ -13,7 +13,7 @@ class MapScreen extends Component {
         return (
             <div>
                 <h1> Map Screen</h1>
-                <GoogleApiWrapper />
+                <MyMapComponent />
             </div>
         );
     }
