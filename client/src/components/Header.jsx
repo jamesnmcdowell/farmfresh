@@ -15,7 +15,7 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm }) =>
                 <img className="logo" src={logo} />
                 <img className="down-arrow" src={menuDownIcon} />
             </div>
-            <SearchBar/>
+            <SearchBar menuOpen={menuOpen} toggleMobileMenu={toggleMobileMenu}/>
             <div className="menu-links">
         
                 <Link to="/login" className="nav-link">
