@@ -38,7 +38,8 @@ const typeDefs = `
     state: String
     zip: String
     validdays: String
-    geocode: String
+    lat: String
+    lng: String
   }
   type User {
     id: Int!

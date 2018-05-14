@@ -30,7 +30,9 @@ export const updateVendorByIdAC = async (dispatch, id) => {
                 state
                 zip
                 validdays
-                geocode
+                lat
+                lng
+                
             }
         }
         }`
@@ -60,6 +62,18 @@ export const updateProductsAC = async (dispatch, type, id) => {
             }
             vendor {
                 name
+              	locations {
+                  id
+                  name
+                  lat
+                  lng
+                  starttime
+                  endtime
+                  address
+                  city
+                  state
+                  zip
+              	}
             }  
             }
         }`
