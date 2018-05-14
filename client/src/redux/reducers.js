@@ -1,7 +1,9 @@
 import {
     toggleMobileMenu,
     toggleLoginModal,
-    checkForm
+    checkForm,
+    updateProductsAC,
+    updateVendorByIdAC
 } from './actions';
 
 import db from '../db';
@@ -9,9 +11,11 @@ import db from '../db';
 
 const initialState = {
     locations: db.locations,
+    products: {},
     menuOpen: false,
     modalOpen: false,
-    formType: 'logIn'
+    formType: 'logIn',
+    currentVendor: {}
 };
 
 const reducerRoutes = {
@@ -23,6 +27,12 @@ const reducerRoutes = {
     }),
     [checkForm]: (state, action) => ({
         ...state, formToggle: action.payload
+    }),
+    [updateProductsAC]: (state, action) => ({
+        ...state, products: action.payload
+    }),
+    [updateVendorByIdAC]: (state, action) => ({
+        ...state, currentVendor: action.payload
     }),
     default: (state, action) => state
 }

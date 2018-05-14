@@ -1,36 +1,71 @@
 {
-    "categories": [
+    "categoriesSpecific": [
         {
             "id": 1,
-            "name": "Dairy"
+            "name": "Dairy",
+            "image_url":"https://image.flaticon.com/icons/svg/135/135626.svg"
         },
         {
             "id": 2,
-            "name": "Eggs"
+            "name": "Eggs",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135638.svg"
         },
         {
             "id": 3,
-            "name": "Vegetables"
+            "name": "Fruits",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135717.svg"
         },
         {
             "id": 4,
-            "name": "Meat"
+            "name": "Vegetables",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135694.svg"
         },
         {
             "id": 5,
-            "name": "Fruits"
+            "name": "Meat",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135628.svg"
         },
         {
             "id": 6,
-            "name": "Seafood"
+            "name": "Seafood",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135677.svg"
         },
         {
             "id": 7,
-            "name": "Pantry"
+            "name": "Personal Care",
+            "image_url": "https://image.flaticon.com/icons/svg/863/863056.svg"
         },
         {
             "id": 8,
-            "name": "Personal Care"
+            "name": "Canned and Packaged",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135600.svg"
+        }
+    ],
+    "categories": [
+        {
+            "id": 1,
+            "name": "Dairy and Eggs",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135626.svg"
+        },
+        {
+            "id": 2,
+            "name": "Fruits and Vegetables",
+            "image_url": "https://image.flaticon.com/icons/svg/866/866722.svg"
+        },
+        {
+            "id": 3,
+            "name": "Meat and Seafood",
+            "image_url": "https://image.flaticon.com/icons/svg/135/135628.svg"
+        },
+        {
+            "id": 4,
+            "name": "Personal Care",
+            "image_url": "https://image.flaticon.com/icons/svg/863/863056.svg"
+        },
+        {
+            "id": 5,
+            "name": "Canned and Packaged",
+            "image_url": "https://image.flaticon.com/icons/svg/836/836566.svg"
         }
     ],
     "items": [
@@ -38,7 +73,7 @@
             "quantity": 5,
             "id": 1,
             "vendor_id": 1,
-            "category_id": 7,
+            "category_id": 5,
             "image_url": "https:\/\/coxshoney.com\/wp-content\/uploads\/2012\/04\/Honey-and-Clover.jpg",
             "price": "$4.99",
             "unit_of_measure": "each",
@@ -49,7 +84,7 @@
             "quantity": 10,
             "id": 2,
             "vendor_id": 1,
-            "category_id": 2,
+            "category_id": 1,
             "image_url": "http:\/\/www.hephzibahfarms.com\/wp-content\/uploads\/2015\/12\/IMG_04042.jpg",
             "price": "$6.99",
             "unit_of_measure": "dozen",
@@ -71,7 +106,7 @@
             "quantity": 10,
             "id": 4,
             "vendor_id": 1,
-            "category_id": 5,
+            "category_id": 2,
             "image_url": "http:\/\/producegeek.com\/wp-content\/uploads\/2017\/01\/organic-watermelon-02-940x626@2x.jpg",
             "price": "$3.99",
             "unit_of_measure": "pound",
@@ -82,7 +117,7 @@
             "quantity": 10,
             "id": 5,
             "vendor_id": 1,
-            "category_id": 4,
+            "category_id": 3,
             "image_url": "https:\/\/2.bp.blogspot.com\/-YmJKLNFUjGc\/UTDwfkNM0NI\/AAAAAAAAeZw\/TvJGb0LDtLQ\/s640\/P1170947a.jpg",
             "price": "$2.99",
             "unit_of_measure": "pound",
@@ -132,7 +167,7 @@
     "vendors": [
         {
             "id": 1,
-            "name": "Hickery Farms",
+            "name": "Hickory Farms",
             "user_id": 1,
             "images": null
         },
