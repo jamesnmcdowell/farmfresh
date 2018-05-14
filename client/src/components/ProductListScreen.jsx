@@ -23,7 +23,7 @@ class ProductListScreen extends Component {
             this.setState({ isLoading: false });
         }
     }
-    
+
     render() {
         let { isLoading } = this.state;
         let { products } = this.props;
