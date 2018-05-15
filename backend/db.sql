@@ -48,7 +48,8 @@ SET default_with_oids = false;
 
 CREATE TABLE public.categories (
     id integer NOT NULL,
-    name character varying
+    name character varying,
+    image_url character varying
 );
 
 
@@ -89,7 +90,8 @@ CREATE TABLE public.items (
     category_id integer,
     unit_of_measure character varying,
     image_url character varying,
-    price money
+    price money,
+    is_available boolean
 );
 
 
@@ -129,7 +131,6 @@ CREATE TABLE public.locations (
     city character varying NOT NULL,
     state character varying(2),
     zip character varying(5),
-    geocode character varying,
     starttime time without time zone NOT NULL,
     endtime time without time zone NOT NULL,
     validdays character varying(7),
@@ -140,7 +141,9 @@ CREATE TABLE public.locations (
     friday boolean NOT NULL,
     saturday boolean NOT NULL,
     sunday boolean NOT NULL,
-    vendor_id integer
+    vendor_id integer,
+    lat numeric,
+    lng numeric
 );
 
 
@@ -169,15 +172,50 @@ ALTER SEQUENCE public.locations_id_seq OWNED BY public.locations.id;
 
 
 --
+-- Name: subcategories; Type: TABLE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE TABLE public.subcategories (
+    id integer NOT NULL,
+    name character varying,
+    image_url character varying
+);
+
+
+ALTER TABLE public.subcategories OWNER TO chrisgoodell;
+
+--
+-- Name: subcategories_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+--
+
+CREATE SEQUENCE public.subcategories_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.subcategories_id_seq OWNER TO chrisgoodell;
+
+--
+-- Name: subcategories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+--
+
+ALTER SEQUENCE public.subcategories_id_seq OWNED BY public.subcategories.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: chrisgoodell
 --
 
 CREATE TABLE public.users (
     id integer NOT NULL,
-    email character varying,
+    email character varying NOT NULL,
     password character varying,
-    firstname character varying,
-    lastname character varying
+    firstname character varying NOT NULL,
+    lastname character varying NOT NULL
 );
 
 
@@ -263,6 +301,13 @@ ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.lo
 
 
 --
+-- Name: subcategories id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.subcategories ALTER COLUMN id SET DEFAULT nextval('public.subcategories_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
 --
 
@@ -280,15 +325,15 @@ ALTER TABLE ONLY public.vendors ALTER COLUMN id SET DEFAULT nextval('public.vend
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.categories (id, name) FROM stdin;
-1	Dairy
-2	Eggs
-3	Vegetables
-4	Meat
-5	Fruits
-6	Seafood
-7	Pantry
-8	Personal Care
+COPY public.categories (id, name, image_url) FROM stdin;
+1	Dairy	\N
+2	Eggs	\N
+3	Vegetables	\N
+4	Meat	\N
+5	Fruits	\N
+6	Seafood	\N
+7	Pantry	\N
+8	Personal Care	\N
 \.
 
 
@@ -296,12 +341,12 @@ COPY public.categories (id, name) FROM stdin;
 -- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.items (id, name, description, quantity, vendor_id, category_id, unit_of_measure, image_url, price) FROM stdin;
-4	Watermelon	Organic and seedless.	10	1	5	pound	http://producegeek.com/wp-content/uploads/2017/01/organic-watermelon-02-940x626@2x.jpg	$3.99
-5	Bacon	Hickory-smoked, thick-sliced bacon.	10	1	4	pound	https://2.bp.blogspot.com/-YmJKLNFUjGc/UTDwfkNM0NI/AAAAAAAAeZw/TvJGb0LDtLQ/s640/P1170947a.jpg	$2.99
-3	Milk	Raw unpasteurized milk from grass-fed cows.	10	1	1	gallon	http://www.theorganicdietitian.com/wp-content/uploads/2013/09/organic-milk-bottle-590.jpg	$4.99
-2	Farm Fresh Eggs	Grade A Large eggs. Hens are free to forage and raised on grass.	10	1	2	dozen	http://www.hephzibahfarms.com/wp-content/uploads/2015/12/IMG_04042.jpg	$6.99
-1	Clover Honey	Strong clover nectar aroma with light amber coloring. Delicate flavor with hints of freshly cut grass and hay.	5	1	7	each	https://coxshoney.com/wp-content/uploads/2012/04/Honey-and-Clover.jpg	$4.99
+COPY public.items (id, name, description, quantity, vendor_id, category_id, unit_of_measure, image_url, price, is_available) FROM stdin;
+4	Watermelon	Organic and seedless.	10	1	5	pound	http://producegeek.com/wp-content/uploads/2017/01/organic-watermelon-02-940x626@2x.jpg	$3.99	t
+5	Bacon	Hickory-smoked, thick-sliced bacon.	10	1	4	pound	https://2.bp.blogspot.com/-YmJKLNFUjGc/UTDwfkNM0NI/AAAAAAAAeZw/TvJGb0LDtLQ/s640/P1170947a.jpg	$2.99	t
+3	Milk	Raw unpasteurized milk from grass-fed cows.	10	1	1	gallon	http://www.theorganicdietitian.com/wp-content/uploads/2013/09/organic-milk-bottle-590.jpg	$4.99	t
+2	Farm Fresh Eggs	Grade A Large eggs. Hens are free to forage and raised on grass.	10	1	2	dozen	http://www.hephzibahfarms.com/wp-content/uploads/2015/12/IMG_04042.jpg	$6.99	t
+1	Clover Honey	Strong clover nectar aroma with light amber coloring. Delicate flavor with hints of freshly cut grass and hay.	5	1	7	each	https://coxshoney.com/wp-content/uploads/2012/04/Honey-and-Clover.jpg	$4.99	t
 \.
 
 
@@ -309,8 +354,16 @@ COPY public.items (id, name, description, quantity, vendor_id, category_id, unit
 -- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.locations (id, name, description, address, city, state, zip, geocode, starttime, endtime, validdays, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id) FROM stdin;
-1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	33.788181,-84.371338	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	\N
+COPY public.locations (id, name, description, address, city, state, zip, starttime, endtime, validdays, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id, lat, lng) FROM stdin;
+1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: subcategories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+--
+
+COPY public.subcategories (id, name, image_url) FROM stdin;
 \.
 
 
@@ -355,6 +408,13 @@ SELECT pg_catalog.setval('public.locations_id_seq', 1, true);
 
 
 --
+-- Name: subcategories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+--
+
+SELECT pg_catalog.setval('public.subcategories_id_seq', 1, false);
+
+
+--
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
 --
 
@@ -390,6 +450,14 @@ ALTER TABLE ONLY public.items
 
 ALTER TABLE ONLY public.locations
     ADD CONSTRAINT locations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: subcategories subcategories_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+--
+
+ALTER TABLE ONLY public.subcategories
+    ADD CONSTRAINT subcategories_pkey PRIMARY KEY (id);
 
 
 --
