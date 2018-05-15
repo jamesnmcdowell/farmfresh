@@ -131,9 +131,9 @@ CREATE TABLE public.locations (
     city character varying NOT NULL,
     state character varying(2),
     zip character varying(5),
-    starttime time without time zone NOT NULL,
-    endtime time without time zone NOT NULL,
-    validdays character varying(7),
+    start_time time without time zone NOT NULL,
+    end_time time without time zone NOT NULL,
+    valid_days character varying(7),
     monday boolean NOT NULL,
     tuesday boolean NOT NULL,
     wednesday boolean NOT NULL,
@@ -214,8 +214,9 @@ CREATE TABLE public.users (
     id integer NOT NULL,
     email character varying NOT NULL,
     password character varying,
-    firstname character varying NOT NULL,
-    lastname character varying NOT NULL
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    is_vendor boolean
 );
 
 
@@ -360,7 +361,7 @@ COPY public.items (id, name, description, quantity, vendor_id, category_id, unit
 -- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.locations (id, name, description, address, city, state, zip, starttime, endtime, validdays, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id, lat, lng) FROM stdin;
+COPY public.locations (id, name, description, address, city, state, zip, start_time, end_time, valid_days, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id, lat, lng) FROM stdin;
 1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	\N	\N	\N
 \.
 
@@ -377,9 +378,9 @@ COPY public.subcategories (id, name, image_url) FROM stdin;
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.users (id, email, password, firstname, lastname) FROM stdin;
-1	james@james.com	ABC	James	McDowell
-2	chris@chris.com	ABC	Chris	Goodell
+COPY public.users (id, email, password, first_name, last_name, is_vendor) FROM stdin;
+1	james@james.com	ABC	James	McDowell	\N
+2	chris@chris.com	ABC	Chris	Goodell	\N
 \.
 
 

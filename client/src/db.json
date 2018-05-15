@@ -1,5 +1,5 @@
 {
-    "categoriesSpecific": [
+    "subcategories": [
         {
             "id": 1,
             "name": "Dairy",
@@ -131,11 +131,11 @@
             "description": "Roadside stand, all items available unless otherwise noted",
             "state": "GA",
             "zip": "30324",
-            "starttime": "09:00:00",
-            "endtime": "15:00:00",
+            "start_time": "09:00:00",
+            "end_time": "15:00:00",
             "lat": 33.788181,
             "lng": -84.371338,
-            "validdays": "0000011",
+            "valid_days": "0000011",
             "thursday": false,
             "friday": false,
             "saturday": true,
@@ -153,11 +153,11 @@
             "description": "Great cheap food at a cost... maybe?",
             "state": "GA",
             "zip": "30305",
-            "starttime": "09:00:00",
-            "endtime": "15:00:00",
+            "start_time": "09:00:00",
+            "end_time": "15:00:00",
             "lat": 33.8481102,
             "lng": -84.37418590000001,
-            "validdays": "0000011",
+            "valid_days": "0000011",
             "thursday": false,
             "friday": false,
             "saturday": true,
@@ -176,15 +176,15 @@
             "email": "james@james.com",
             "id": 1,
             "password": "ABC",
-            "lastname": "McDowell",
-            "firstname": "James"
+            "last_name": "McDowell",
+            "first_name": "James"
         },
         {
             "email": "chris@chris.com",
             "id": 2,
             "password": "ABC",
-            "lastname": "Goodell",
-            "firstname": "Chris"
+            "last_name": "Goodell",
+            "first_name": "Chris"
         }
     ],
     "vendors": [
