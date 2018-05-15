@@ -251,7 +251,13 @@ CREATE TABLE public.vendors (
     id integer NOT NULL,
     user_id integer,
     images text[],
-    name character varying
+    name character varying,
+    about_description character varying,
+    product_description character varying,
+    address character varying,
+    city character varying,
+    state character varying(2),
+    zip character varying(5)
 );
 
 
@@ -381,8 +387,8 @@ COPY public.users (id, email, password, firstname, lastname) FROM stdin;
 -- Data for Name: vendors; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
 --
 
-COPY public.vendors (id, user_id, images, name) FROM stdin;
-1	1	\N	\N
+COPY public.vendors (id, user_id, images, name, about_description, product_description, address, city, state, zip) FROM stdin;
+1	1	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
