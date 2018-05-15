@@ -34,21 +34,21 @@ const typeDefs = `
     name: String!
     description: String
     vendor: Vendor
-    starttime: String
-    endtime: String
+    start_time: String
+    end_time: String
     address: String
     city: String 
     state: String
     zip: String
-    validdays: String
+    valid_days: String
     lat: String
     lng: String
   }
   type User {
     id: Int!
     username: String!
-    firstname: String!
-    lastname: String!
+    first_name: String!
+    last_name: String!
     email: String!
   }
   type Query {
@@ -65,8 +65,8 @@ const typeDefs = `
   type Mutation {
     signup (username: String!, email: String!, password: String!): String
     login (email: String!, password: String!): String
-    createUser(firstname: String!, lastname: String!, email: String!): User!
-    updateUser(id: ID!, firstname: String!, lastname: String!, email: String!): User!
+    createUser(first_name: String!, last_name: String!, email: String!): User!
+    updateUser(id: ID!, first_name: String!, last_name: String!, email: String!): User!
     deleteUser(id: ID!): User!
     createVendor(name: String!, user: String!): Vendor!
   }
