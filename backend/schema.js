@@ -11,7 +11,7 @@ const typeDefs = `
     items: [Item]
   }
    type Item {
-    id: Int !
+    id: Int!
     name: String
     description: String
     price: String
@@ -22,13 +22,13 @@ const typeDefs = `
   }
   type Vendor {
     id: Int!
-    name: String
-    user: User
+    name: String!
+    user: User!
     locations: [Location]
   }
   type Location {
     id: Int!  
-    name: String
+    name: String!
     description: String
     vendor: Vendor
     starttime: String
@@ -43,10 +43,17 @@ const typeDefs = `
   }
   type User {
     id: Int!
-    firstname: String
-    lastname: String
-    email: String
+    firstname: String!
+    lastname: String!
+    email: String!
   }
+  type Mutation {
+    createUser(firstname: String!, lastname: String!, email: String!): User!
+    updateUser(id: ID!, firstname: String!, lastname: String!, email: String!): User!
+    deleteUser(id: ID!): User!
+    createVendor(name: String!, user: String!): Vendor!
+  }
+
   type Query {
     categories: [Category]
     items: [Item]
