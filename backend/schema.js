@@ -45,7 +45,8 @@ const typeDefs = `
     id: Int!
     firstname: String
     lastname: String
-    email: String
+    username: String!
+    email: String!
   }
   type Query {
     categories: [Category]
@@ -56,7 +57,12 @@ const typeDefs = `
     users: [User]
     vendors: [Vendor]
     item(id: Int!): Item
+    me: User
   }
+   type Mutation {
+        signup (username: String!, email: String!, password: String!): String
+        login (email: String!, password: String!): String
+      }
 `;
 
 const resolvers = {
@@ -69,6 +75,7 @@ const resolvers = {
         locations: () => db.locations,
         vendor: (_, args) => find(db.vendors, { id: args.id }),
         item: (_, args) => find(db.items, { id: args.id }),
+        me: (parent, args, ctx) => ctx.user
     },
     Category: {
         items: (category) => filter(db.items, { category_id: category.id })

@@ -64,9 +64,12 @@ let getMyRecipes = (req, res) => {
     .then(recipes => res.send(recipes))
   )
 }
+// jwtParser
+api.post('/graphql', jwtParser, koaBody(), 
+  graphql(ctx => ({ schema, context: ctx.state }))
+);
+// api.get('/graphql', graphql({ schema}));
 
-api.post('/graphql', koaBody(), graphql({ schema }));
-api.get('/graphql', graphql({ schema}));
 api.get('/graphiql', graphiql({ endpointURL: '/graphql' }));
 api.all('/voyager', middleware({ endpointUrl: '/graphql' }));
 
