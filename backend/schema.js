@@ -50,6 +50,7 @@ const typeDefs = `
     first_name: String!
     last_name: String!
     email: String!
+    is_vendor: Boolean
   }
   type Query {
     categories: [Category]
@@ -66,9 +67,8 @@ const typeDefs = `
     signup (username: String!, email: String!, password: String!): String
     login (email: String!, password: String!): String
     createUser(first_name: String!, last_name: String!, email: String!): User!
-    updateUser(id: ID!, first_name: String!, last_name: String!, email: String!): User!
+    updateUser(id: Int!, first_name: String, last_name: String is_vendor: Boolean, email: String): String
     deleteUser(id: ID!): User!
-    createVendor(name: String!, user: String!): Vendor!
   }
 `;
 
@@ -121,6 +121,21 @@ const resolvers = {
 
     },
     Mutation: {
+        updateUser: (_, { id, is_vendor}, ctx) => {
+            console.log(id);
+            console.log(is_vendor);
+            let user =  find(db.users, { id: id })
+            console.log(user);
+            console.log('ctx.user')
+            console.log(ctx.user);
+            // if (!ctx.user) {
+            //     throw new Error('No user with that email')
+            // }
+
+            // console.log("token sever");
+            // console.log(token);
+            return user;
+        },
         // Handle user signup
         signup: async (_, { username, email, password }) => {
             console.log('inside mutation');
@@ -143,7 +158,7 @@ const resolvers = {
         // Handles user login
         login: async (_, { email, password }, ctx) => {
             const user = await find(db.users, { email: email}) 
-
+          
             if (!ctx.user) {
                 throw new Error('No user with that email')
             }
