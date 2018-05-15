@@ -174,6 +174,7 @@
     "users": [
         {
             "email": "james@james.com",
+            "username": "james123",
             "id": 1,
             "password": "ABC",
             "last_name": "McDowell",
@@ -181,6 +182,7 @@
         },
         {
             "email": "chris@chris.com",
+            "username": "chris123",
             "id": 2,
             "password": "ABC",
             "last_name": "Goodell",
