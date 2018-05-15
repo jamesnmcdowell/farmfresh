@@ -8,6 +8,7 @@ import { toggleMobileMenu } from '../redux/actions';
 import { toggleLoginModal } from '../redux/actions';
 import { checkForm } from '../redux/actions';
 import {withState} from 'recompose';
+import ClickOutside from 'react-click-outside';
 
 let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, currentUser ,accountDropdown, toggleAccountDropdown }) =>
     <div className="nav-bar">
@@ -22,20 +23,22 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, current
                 <Link to="/login" className="nav-link">
                     <span> Become a Vendor</span>
                 </Link>
-                <div onClick={() => { toggleAccountDropdown(!accountDropdown); }} className="header-user-details">
+                <div onClick={() => { toggleAccountDropdown(!accountDropdown); }} className="header-user-details nav-link">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/2000px-Missing_avatar.svg.png"/>
                     <span> {currentUser.user.username} </span>
-                    { accountDropdown &&
-                    <div className="account-dropdown">
-                        <ul>
-                            <li> Account Settings </li>
-                            <li> Favorites </li>
-                            <li> Sign out </li>
-                        </ul>
-                    </div>
-                    }
+                
                 </div>
-            
+                {accountDropdown &&
+                    <ClickOutside onClickOutside={() => { toggleAccountDropdown(false); }}>
+                        <div className="account-dropdown">
+                            <ul>
+                                <li> Account Settings </li>
+                                <li> Favorites </li>
+                                <li> Sign out </li>
+                            </ul>
+                        </div>
+                    </ClickOutside>
+                }
             </div>
                         :
             <div className="menu-links">

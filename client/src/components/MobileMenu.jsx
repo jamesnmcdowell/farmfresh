@@ -5,11 +5,12 @@ import { connect } from 'react-redux';
 import { toggleMobileMenu } from '../redux/actions';
 import { Link } from 'react-router-dom';
 
-let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm}) => {
+let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, currentUser}) => {
     console.log('sdf ' + menuOpen);
 
     return (
     <div className={(menuOpen) ? "mobile-menu-wrapper menu-open" : "mobile-menu-wrapper"}>
+        {currentUser ?
         <ul className="mobile-menu-list">
             <li>
                     <Link to="/" onClick={() => { toggleMobileMenu(); }}>
@@ -33,6 +34,46 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm}) =>
             </li>
             <li>
                 <div className="anchor-actions" onClick={() => { toggleLoginModal(); checkForm('signUp'); toggleMobileMenu(); }}>
+                    <span>Account</span>
+                </div>
+            </li>
+            <li>
+                <a href="/" >
+                    <div>
+                        <span>About</span>
+                    </div>
+                </a>
+            </li>   
+            <li>
+                <div className="anchor-actions">
+                    <span>Log out</span>
+                </div>
+            </li>          
+        </ul>
+                    :
+        <ul className="mobile-menu-list">
+            <li>
+                <Link to="/" onClick={() => { toggleMobileMenu(); }}>
+                    <div>
+                        <span>Home</span>
+                    </div>
+                </Link>
+            </li>
+            <li>
+                <hr />
+            </li>
+            <li>
+                <a href="/" >
+                    <div>
+                        <span>Become a Vendor</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <hr />
+            </li>
+            <li>
+                <div className="anchor-actions" onClick={() => { toggleLoginModal(); checkForm('signUp'); toggleMobileMenu(); }}>
                     <span>Sign up</span>
                 </div>
             </li>
@@ -40,20 +81,22 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm}) =>
                 <div className="anchor-actions" onClick={() => { toggleLoginModal(); checkForm('signIn'); toggleMobileMenu(); }}>
                     <span>Sign In</span>
                 </div>
-            </li> 
+            </li>
             <li>
                 <a href="/" >
                     <div>
                         <span>About</span>
                     </div>
                 </a>
-            </li>             
+            </li>
         </ul>
+        }
         </div> 
     )
 }
 let mapStateToProps = (state, props) => ({
     menuOpen: state.menuOpen,
+    currentUser: state.currentUser
 });
 let mapDispatchToProps = dispatch => (
     {
