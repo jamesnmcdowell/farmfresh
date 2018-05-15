@@ -119,24 +119,28 @@ const resolvers = {
     Mutation: {
         // Handle user signup
         signup: async (_, { username, email, password }) => {
+            console.log('inside mutation');
             const user = await db.users.push({
                 username,
                 email,
                 password: await bcrypt.hash(password, 10)
             })
             // Return json web token
-            return jsonwebtoken.sign(
+            let token = jsonwebtoken.sign(
                 { id: user.id, email: user.email },
                 signature,
                 { expiresIn: '1y' }
             )
+            console.log("token sever");
+            console.log(token);
+            return token
         },
 
         // Handles user login
-        login: async (_, { email, password }) => {
+        login: async (_, { email, password }, ctx) => {
             const user = await find(db.users, { email: email}) 
 
-            if (!user) {
+            if (!ctx.user) {
                 throw new Error('No user with that email')
             }
 
@@ -145,13 +149,15 @@ const resolvers = {
             if (!valid) {
                 throw new Error('Incorrect password')
             }
-
             // Return json web token
-            return jsonwebtoken.sign(
+            let token = jsonwebtoken.sign(
                 { id: user.id, email: user.email },
                 signature,
                 { expiresIn: '1y' }
-            )
+            );
+            console.log("token sever");
+            console.log(token);
+            return token
         }
     }
     

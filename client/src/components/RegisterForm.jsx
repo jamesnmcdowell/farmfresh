@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import EnhanceForm from './EnhanceForm';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createAccountAC } from '../redux/actions';
+import { toggleLoginModal } from '../redux/actions';
 
-export const RegisterForm = ({ state, handleSubmit, handleChange, history }) =>
+export const RegisterForm = ({ state, handleSubmit, handleChange, history, dispatch, toggleLoginModal, createAccountAC }) =>
     <form className="login-form" onSubmit={handleSubmit}>
         <label> Email </label>
         <div>
@@ -54,8 +56,37 @@ export const RegisterForm = ({ state, handleSubmit, handleChange, history }) =>
                 required="" />
         </div>
         <br />
-        <button className="button-default" >Create Account</button>
+        <button className="button-default" 
+            onClick={event => createAccountAC(
+                {
+                    email: state.email,
+                    password: state.password,
+                    username: state.username,
+                    firstname: state.firstname,
+                    lastname: state.lastname
+                })
+                // .then(token => { localStorage.setItem('token', JSON.stringify(token)); return token })
+                // .then(token => setToken(token))
+                .then( () => { toggleLoginModal()} )
+                // .then(res => history.push('/'))
+                // .catch(err => console.log(err))
+            }> Create Account</button>
     </form>
+toggleLoginModal
 
-const EnhancedForm = EnhanceForm(RegisterForm);
+
+let mapStateToProps = (state, props) => state;
+let mapDispatchToProps = dispatch => (
+    {
+        toggleLoginModal: booleanVal => dispatch(toggleLoginModal(booleanVal)),
+        createAccountAC: user => createAccountAC(dispatch, user)
+    }
+);
+
+let RegisterFormState = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(RegisterForm);
+
+const EnhancedForm = EnhanceForm(RegisterFormState);
 export default EnhancedForm;

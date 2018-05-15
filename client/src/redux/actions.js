@@ -1,4 +1,4 @@
-import { queryGraphQL } from '../ajax';
+import { queryGraphQL, queryGraphQL2 } from '../ajax';
 import { getMatchingLibraries } from '../util';
 
 export const toggleMobileMenu = booleanVal =>
@@ -15,6 +15,13 @@ export const checkForm = string =>
         type: checkForm.toString(),
         payload: string
     });
+
+export const setToken = token =>
+    ({
+        type: setToken.toString(),
+        payload: token
+
+    })
 
 export const updateUserLocationAC = async (dispatch) => {
     try {
@@ -146,11 +153,45 @@ export const updateProductsAC = async (dispatch, type, id) => {
     } catch (e) {
         console.error(e);
     }
-};    
+};
+
+export const createAccountAC = async (dispatch, user) => {
+    console.log("im inside");
+    console.log(user);
+    let createMutation = `mutation{
+      signup (username: "${user.username}", email: "${user.email}", password: "${user.password}")
+    }`
+    try {
+        let token = await queryGraphQL(createMutation);
+        let payload = { token: token.data.signup, user: { username: user.username, email: user.email } };
+        localStorage.setItem('currentUser', JSON.stringify(payload));
+        console.log(token.data.signup);
+        dispatch({
+            type: createAccountAC.toString(),
+            payload: payload
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};  
+    
 
 toggleMobileMenu.toString = () => 'TOGGLE_MOBILE_MENU';
 toggleLoginModal.toString = () => 'TOGGLE_LOGIN_MODAL';
 checkForm.toString = () => 'CHECK_FORM';
+setToken.toString = () => 'SET_TOKEN';
 updateProductsAC.toString = () => 'UPDATE_PRODUCTS_AC';
 updateVendorByIdAC.toString = () => 'UPDATE_VENDOR_BY_ID_AC';
 updateUserLocationAC.toString = () => 'UPDATE_USER_LOCATION_AC';
+createAccountAC.toString = () => 'CREATE_ACCOUNT_AC';
+
+
+// export let createAccount = (user) =>
+//     fetch('/users', {
+//         body: JSON.stringify(user),
+//         method: 'POST',
+//         headers: {
+//             'content-type': 'application/json'
+//         }
+//     })
+//         .then(res => res.json())

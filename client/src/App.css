@@ -126,7 +126,6 @@ input:focus {
   z-index: -1;
 }
 
-
 .suggestions {
   text-align: center;
   padding: 0;
@@ -181,7 +180,6 @@ input:focus {
   transition: all .3s ease-in;
 }
 .mobile-menu-wrapper.menu-open {
-
   transition: all .5s ease-out;
   transform: translateY(0px);
 }
@@ -213,6 +211,40 @@ input:focus {
   margin: 16px 0px;
 }
 
+/* ---- */
+
+
+.account-dropdown {
+  text-align: center;
+  padding: 0;
+  position: absolute;
+  top: 72px;
+  width: 200px; 
+  right: 0;
+  /* width: calc(100% - 0px); */
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-top: 3px solid #FEC04A;
+}
+.account-dropdown ul {
+  padding: 0;
+}
+
+.account-dropdown a {
+  padding:0;
+  outline: 2px solid #f0f0f0;
+  padding: .8rem;
+}
+
+.account-dropdown li{
+  padding: 1rem;
+  list-style: none;
+  margin: 0;
+  transition: background 0.2s;
+  display: flex;
+  justify-content: space-between;
+  text-transform: capitalize;
+}
 
 
 /* ----- homepage ------ */
@@ -592,6 +624,16 @@ footer input {
     display: flex;
     align-items: center;
     padding-right: 24px;
+  }
+  .header-user-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .header-user-details img{
+    width: 25px;
+
   }
   .nav-link {
     flex: 0 0 auto;
