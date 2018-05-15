@@ -51,12 +51,6 @@ const typeDefs = `
     lastname: String!
     email: String!
   }
-  type Mutation {
-    createUser(firstname: String!, lastname: String!, email: String!): User!
-    updateUser(id: ID!, firstname: String!, lastname: String!, email: String!): User!
-    deleteUser(id: ID!): User!
-    createVendor(name: String!, user: String!): Vendor!
-  }
 
   type Query {
     categories: [Category]
@@ -69,10 +63,14 @@ const typeDefs = `
     item(id: Int!): Item
     me: User
   }
-   type Mutation {
-        signup (username: String!, email: String!, password: String!): String
-        login (email: String!, password: String!): String
-      }
+  type Mutation {
+    signup (username: String!, email: String!, password: String!): String
+    login (email: String!, password: String!): String
+    createUser(firstname: String!, lastname: String!, email: String!): User!
+    updateUser(id: ID!, firstname: String!, lastname: String!, email: String!): User!
+    deleteUser(id: ID!): User!
+    createVendor(name: String!, user: String!): Vendor!
+  }
 `;
 
 let checkUser = (ctx) => {
