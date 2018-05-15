@@ -2,9 +2,11 @@ import {
     toggleMobileMenu,
     toggleLoginModal,
     checkForm,
+    setToken,
     updateProductsAC,
     updateVendorByIdAC,
-    updateUserLocationAC
+    updateUserLocationAC,
+    createAccountAC
 } from './actions';
 
 import db from '../db';
@@ -17,7 +19,8 @@ const initialState = {
     modalOpen: false,
     formType: 'logIn',
     currentVendor: null,
-    userLocation: null
+    userLocation: null,
+    currentUser: null
 };
 
 const reducerRoutes = {
@@ -38,6 +41,12 @@ const reducerRoutes = {
     }),
     [updateUserLocationAC]: (state, action) => ({
         ...state, userLocation: action.payload
+    }),
+    [setToken]: (state, action) => ({
+        ...state, currentUser: action.payload
+    }),
+    [createAccountAC]: (state, action) => ({
+        ...state, currentUser: action.payload
     }),
     default: (state, action) => state
 }
