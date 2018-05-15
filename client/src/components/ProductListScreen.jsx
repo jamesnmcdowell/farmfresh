@@ -9,15 +9,20 @@ class ProductListScreen extends Component {
         super(props);
         this.state = { isLoading: true, loadingLocation: true };
     }
-
-    async componentDidMount() {
+    fetchProducts() {
         let { type, id } = this.props.match.params;
         updateProductsAC(this.props.dispatch, type, id);
         updateUserLocationAC(this.props.dispatch);
+    }
+   componentDidMount() {
+       this.fetchProducts();
        
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.props.match.params.id !== prevProps.match.params.id) {
+            this.fetchProducts()
+        }
         let {userLocation} = this.props;
         if (this.state.isLoading && this.props.products.length > 0) {
             this.setState({ isLoading: false });

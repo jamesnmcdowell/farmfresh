@@ -178,7 +178,8 @@
             "id": 1,
             "password": "ABC",
             "last_name": "McDowell",
-            "first_name": "James"
+            "first_name": "James",
+            "is_vendor": false
         },
         {
             "email": "chris@chris.com",
@@ -186,7 +187,8 @@
             "id": 2,
             "password": "ABC",
             "last_name": "Goodell",
-            "first_name": "Chris"
+            "first_name": "Chris",
+            "is_vendor": true
         }
     ],
     "vendors": [

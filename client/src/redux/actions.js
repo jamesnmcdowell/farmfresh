@@ -52,13 +52,13 @@ export const updateVendorByIdAC = async (dispatch, id) => {
             locations {
                 name
                 description
-                starttime
-                endtime
+                start_time
+                end_time
                 address
                 city
                 state
                 zip
-                validdays
+                valid_days
                 lat
                 lng
                 
@@ -96,8 +96,8 @@ export const updateProductsAC = async (dispatch, type, id) => {
                   name
                   lat
                   lng
-                  starttime
-                  endtime
+                  start_time
+                  end_time
                   address
                   city
                   state
