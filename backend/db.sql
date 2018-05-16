@@ -16,13 +16,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: farmfreshgraph; Type: SCHEMA; Schema: -; Owner: chrisgoodell
+-- Name: farmfreshgraph; Type: SCHEMA; Schema: -; Owner: james
 --
 
 CREATE SCHEMA farmfreshgraph;
 
 
-ALTER SCHEMA farmfreshgraph OWNER TO chrisgoodell;
+ALTER SCHEMA farmfreshgraph OWNER TO james;
 
 --
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
@@ -43,7 +43,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: categories; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: categories; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.categories (
@@ -53,10 +53,10 @@ CREATE TABLE public.categories (
 );
 
 
-ALTER TABLE public.categories OWNER TO chrisgoodell;
+ALTER TABLE public.categories OWNER TO james;
 
 --
--- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.categories_id_seq
@@ -68,17 +68,17 @@ CREATE SEQUENCE public.categories_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.categories_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.categories_id_seq OWNER TO james;
 
 --
--- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
 --
--- Name: items; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: items; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.items (
@@ -95,10 +95,10 @@ CREATE TABLE public.items (
 );
 
 
-ALTER TABLE public.items OWNER TO chrisgoodell;
+ALTER TABLE public.items OWNER TO james;
 
 --
--- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: items_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.items_id_seq
@@ -110,17 +110,17 @@ CREATE SEQUENCE public.items_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.items_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.items_id_seq OWNER TO james;
 
 --
--- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: items_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.items_id_seq OWNED BY public.items.id;
 
 
 --
--- Name: locations; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: locations; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.locations (
@@ -147,10 +147,10 @@ CREATE TABLE public.locations (
 );
 
 
-ALTER TABLE public.locations OWNER TO chrisgoodell;
+ALTER TABLE public.locations OWNER TO james;
 
 --
--- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: locations_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.locations_id_seq
@@ -162,17 +162,17 @@ CREATE SEQUENCE public.locations_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.locations_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.locations_id_seq OWNER TO james;
 
 --
--- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: locations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.locations_id_seq OWNED BY public.locations.id;
 
 
 --
--- Name: subcategories; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: subcategories; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.subcategories (
@@ -182,10 +182,10 @@ CREATE TABLE public.subcategories (
 );
 
 
-ALTER TABLE public.subcategories OWNER TO chrisgoodell;
+ALTER TABLE public.subcategories OWNER TO james;
 
 --
--- Name: subcategories_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: subcategories_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.subcategories_id_seq
@@ -197,17 +197,17 @@ CREATE SEQUENCE public.subcategories_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.subcategories_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.subcategories_id_seq OWNER TO james;
 
 --
--- Name: subcategories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: subcategories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.subcategories_id_seq OWNED BY public.subcategories.id;
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: users; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.users (
@@ -216,14 +216,14 @@ CREATE TABLE public.users (
     password character varying,
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
-    is_vendor boolean
+    user_name character varying
 );
 
 
-ALTER TABLE public.users OWNER TO chrisgoodell;
+ALTER TABLE public.users OWNER TO james;
 
 --
--- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.users_id_seq
@@ -235,17 +235,17 @@ CREATE SEQUENCE public.users_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.users_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.users_id_seq OWNER TO james;
 
 --
--- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- Name: vendors; Type: TABLE; Schema: public; Owner: chrisgoodell
+-- Name: vendors; Type: TABLE; Schema: public; Owner: james
 --
 
 CREATE TABLE public.vendors (
@@ -262,10 +262,10 @@ CREATE TABLE public.vendors (
 );
 
 
-ALTER TABLE public.vendors OWNER TO chrisgoodell;
+ALTER TABLE public.vendors OWNER TO james;
 
 --
--- Name: vendors_id_seq; Type: SEQUENCE; Schema: public; Owner: chrisgoodell
+-- Name: vendors_id_seq; Type: SEQUENCE; Schema: public; Owner: james
 --
 
 CREATE SEQUENCE public.vendors_id_seq
@@ -277,97 +277,94 @@ CREATE SEQUENCE public.vendors_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.vendors_id_seq OWNER TO chrisgoodell;
+ALTER TABLE public.vendors_id_seq OWNER TO james;
 
 --
--- Name: vendors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: chrisgoodell
+-- Name: vendors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: james
 --
 
 ALTER SEQUENCE public.vendors_id_seq OWNED BY public.vendors.id;
 
 
 --
--- Name: categories id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: categories id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
 
 
 --
--- Name: items id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: items id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.items ALTER COLUMN id SET DEFAULT nextval('public.items_id_seq'::regclass);
 
 
 --
--- Name: locations id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: locations id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.locations ALTER COLUMN id SET DEFAULT nextval('public.locations_id_seq'::regclass);
 
 
 --
--- Name: subcategories id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: subcategories id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.subcategories ALTER COLUMN id SET DEFAULT nextval('public.subcategories_id_seq'::regclass);
 
 
 --
--- Name: users id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
--- Name: vendors id; Type: DEFAULT; Schema: public; Owner: chrisgoodell
+-- Name: vendors id; Type: DEFAULT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.vendors ALTER COLUMN id SET DEFAULT nextval('public.vendors_id_seq'::regclass);
 
 
 --
--- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: james
 --
 
 COPY public.categories (id, name, image_url) FROM stdin;
-1	Dairy	\N
-2	Eggs	\N
-3	Vegetables	\N
-4	Meat	\N
-5	Fruits	\N
-6	Seafood	\N
-7	Pantry	\N
-8	Personal Care	\N
+3	Meat and Seafood	https://image.flaticon.com/icons/svg/135/135628.svg
+1	Dairy and Eggs	https://image.flaticon.com/icons/svg/135/135626.svg
+4	Personal Care	https://image.flaticon.com/icons/svg/863/863056.svg
+2	Fruits and Vegetables	https://image.flaticon.com/icons/svg/866/866722.svg
+5	Canned and Packaged	https://image.flaticon.com/icons/svg/836/836566.svg
 \.
 
 
 --
--- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: items; Type: TABLE DATA; Schema: public; Owner: james
 --
 
 COPY public.items (id, name, description, quantity, vendor_id, category_id, unit_of_measure, image_url, price, is_available) FROM stdin;
-4	Watermelon	Organic and seedless.	10	1	5	pound	http://producegeek.com/wp-content/uploads/2017/01/organic-watermelon-02-940x626@2x.jpg	$3.99	t
-5	Bacon	Hickory-smoked, thick-sliced bacon.	10	1	4	pound	https://2.bp.blogspot.com/-YmJKLNFUjGc/UTDwfkNM0NI/AAAAAAAAeZw/TvJGb0LDtLQ/s640/P1170947a.jpg	$2.99	t
 3	Milk	Raw unpasteurized milk from grass-fed cows.	10	1	1	gallon	http://www.theorganicdietitian.com/wp-content/uploads/2013/09/organic-milk-bottle-590.jpg	$4.99	t
-2	Farm Fresh Eggs	Grade A Large eggs. Hens are free to forage and raised on grass.	10	1	2	dozen	http://www.hephzibahfarms.com/wp-content/uploads/2015/12/IMG_04042.jpg	$6.99	t
-1	Clover Honey	Strong clover nectar aroma with light amber coloring. Delicate flavor with hints of freshly cut grass and hay.	5	1	7	each	https://coxshoney.com/wp-content/uploads/2012/04/Honey-and-Clover.jpg	$4.99	t
+2	Farm Fresh Eggs	Grade A Large eggs. Hens are free to forage and raised on grass.	10	1	1	dozen	http://www.hephzibahfarms.com/wp-content/uploads/2015/12/IMG_04042.jpg	$6.99	t
+1	Clover Honey	Strong clover nectar aroma with light amber coloring. Delicate flavor with hints of freshly cut grass and hay.	5	1	5	each	https://coxshoney.com/wp-content/uploads/2012/04/Honey-and-Clover.jpg	$4.99	t
+4	Watermelon	Organic and seedless.	10	1	2	pound	http://producegeek.com/wp-content/uploads/2017/01/organic-watermelon-02-940x626@2x.jpg	$3.99	t
+5	Bacon	Hickory-smoked, thick-sliced bacon.	10	1	3	pound	https://2.bp.blogspot.com/-YmJKLNFUjGc/UTDwfkNM0NI/AAAAAAAAeZw/TvJGb0LDtLQ/s640/P1170947a.jpg	$2.99	t
 \.
 
 
 --
--- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: locations; Type: TABLE DATA; Schema: public; Owner: james
 --
 
 COPY public.locations (id, name, description, address, city, state, zip, start_time, end_time, valid_days, monday, tuesday, wednesday, thursday, friday, saturday, sunday, vendor_id, lat, lng) FROM stdin;
-1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	\N	\N	\N
+1	Cow Tippers	Roadside stand, all items available unless otherwise noted	1616 Piedmont Ave NE	Atlanta	GA	30324	09:00:00	15:00:00	0000011	f	f	f	f	f	t	t	1	38	-83
 \.
 
 
 --
--- Data for Name: subcategories; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: subcategories; Type: TABLE DATA; Schema: public; Owner: james
 --
 
 COPY public.subcategories (id, name, image_url) FROM stdin;
@@ -375,68 +372,70 @@ COPY public.subcategories (id, name, image_url) FROM stdin;
 
 
 --
--- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: james
 --
 
-COPY public.users (id, email, password, first_name, last_name, is_vendor) FROM stdin;
+COPY public.users (id, email, password, first_name, last_name, user_name) FROM stdin;
 1	james@james.com	ABC	James	McDowell	\N
 2	chris@chris.com	ABC	Chris	Goodell	\N
+39	james	$2b$10$bHNdOac2mo7dUXuYpJOS9OY3vkCBU.uo.a2qvHew7LZ7R0L8znU1a	james	james	james
 \.
 
 
 --
--- Data for Name: vendors; Type: TABLE DATA; Schema: public; Owner: chrisgoodell
+-- Data for Name: vendors; Type: TABLE DATA; Schema: public; Owner: james
 --
 
 COPY public.vendors (id, user_id, images, name, about_description, product_description, address, city, state, zip) FROM stdin;
-1	1	\N	\N	\N	\N	\N	\N	\N	\N
+1	1	\N	Hickory Farms	\N	\N	\N	\N	\N	\N
+33	39	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
 --
--- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+-- Name: categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
 --
 
 SELECT pg_catalog.setval('public.categories_id_seq', 8, true);
 
 
 --
--- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+-- Name: items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
 --
 
 SELECT pg_catalog.setval('public.items_id_seq', 5, true);
 
 
 --
--- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+-- Name: locations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
 --
 
 SELECT pg_catalog.setval('public.locations_id_seq', 1, true);
 
 
 --
--- Name: subcategories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+-- Name: subcategories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
 --
 
 SELECT pg_catalog.setval('public.subcategories_id_seq', 1, false);
 
 
 --
--- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
-
-
---
--- Name: vendors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: chrisgoodell
---
-
-SELECT pg_catalog.setval('public.vendors_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 39, true);
 
 
 --
--- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: vendors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: james
+--
+
+SELECT pg_catalog.setval('public.vendors_id_seq', 33, true);
+
+
+--
+-- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.categories
@@ -444,7 +443,7 @@ ALTER TABLE ONLY public.categories
 
 
 --
--- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: items items_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.items
@@ -452,7 +451,7 @@ ALTER TABLE ONLY public.items
 
 
 --
--- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: locations locations_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.locations
@@ -460,7 +459,7 @@ ALTER TABLE ONLY public.locations
 
 
 --
--- Name: subcategories subcategories_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: subcategories subcategories_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.subcategories
@@ -468,7 +467,7 @@ ALTER TABLE ONLY public.subcategories
 
 
 --
--- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.users
@@ -476,7 +475,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: vendors vendors_pkey; Type: CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: vendors vendors_pkey; Type: CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.vendors
@@ -484,7 +483,7 @@ ALTER TABLE ONLY public.vendors
 
 
 --
--- Name: items items_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: items items_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.items
@@ -492,7 +491,7 @@ ALTER TABLE ONLY public.items
 
 
 --
--- Name: items items_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: items items_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.items
@@ -500,7 +499,7 @@ ALTER TABLE ONLY public.items
 
 
 --
--- Name: locations locations_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: locations locations_vendor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.locations
@@ -508,7 +507,7 @@ ALTER TABLE ONLY public.locations
 
 
 --
--- Name: vendors vendors_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: chrisgoodell
+-- Name: vendors vendors_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: james
 --
 
 ALTER TABLE ONLY public.vendors
