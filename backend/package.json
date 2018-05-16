@@ -11,6 +11,7 @@
     "koa-jwt": "^3.3.1",
     "koa-router": "^7.4.0",
     "lodash": "^4.17.10",
+    "pg": "^7.4.3",
     "pg-promise": "^8.4.4"
   },
   "scripts": {

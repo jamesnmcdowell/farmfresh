@@ -25,7 +25,7 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, current
                 </Link>
                 <div onClick={() => { toggleAccountDropdown(!accountDropdown); }} className="header-user-details nav-link">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/2000px-Missing_avatar.svg.png"/>
-                    <span> {currentUser.user.username} </span>
+                    <span> {currentUser.username} </span>
                 
                 </div>
                 {accountDropdown &&

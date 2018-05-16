@@ -26,8 +26,8 @@ const typeDefs = `
   }
   type Vendor {
     id: Int!
-    name: String!
-    user: User!
+    name: String
+    user: User
     locations: [Location]
   }
   type Location {
@@ -47,7 +47,7 @@ const typeDefs = `
   }
   type User {
     id: Int!
-    username: String!
+    user_name: String!
     first_name: String!
     last_name: String!
     email: String!
@@ -65,10 +65,10 @@ const typeDefs = `
     me: User
   }
   type Mutation {
-    signup (username: String!, first_name: String!, last_name: String!, email: String!, password: String!): String
+    signup (user_name: String!, first_name: String, last_name: String, email: String, password: String!): String
     login (email: String!, password: String!): String
     createUser(first_name: String!, last_name: String!, email: String!): User!
-    updateUser(id: Int!, first_name: String, last_name: String is_vendor: Boolean, email: String): String
+    updateVendorStatus(id: Int!, first_name: String, last_name: String is_vendor: Boolean, email: String): String
     deleteUser(id: ID!): User!
   }
 `;
@@ -81,9 +81,9 @@ let checkUser = (ctx) => {
 
 const resolvers = {
     Query: {
-        vendors: (_, args, ctx) => db2.query(`SELECT * FROM vendors;`), //db.vendors
-        categories: (_, args, ctx) => db2.query(`SELECT * FROM categories;`), //db.categories,
-        users: (_, args, ctx) => db2.query(`SELECT * FROM users;`), //db.users,
+        vendors: async (_, args, ctx) => await db2.query(`SELECT * FROM vendors;`), 
+        categories: async (_, args, ctx) => await db2.query(`SELECT * FROM categories;`), 
+        users: async (_, args, ctx) => await db2.query(`SELECT * FROM users;`), 
         items: (_, args, ctx) => db2.query(`SELECT * FROM items;`),
             //{
             // checkUser(ctx);
@@ -94,74 +94,70 @@ const resolvers = {
             // }
             // return db.items 
             //},
-        category: (_, args, ctx) => db2.query(`SELECT * FROM categories WHERE id = ${args.id};`), //find(db.categories, { id: args.id }),
-        locations: (_, args, ctx) => db2.query(`SELECT * FROM locations;`), //db.locations,
-        vendor: (_, args, ctx) => db2.query(`SELECT * FROM vendors WHERE id = ${args.id};`), //find(db.vendors, { id: args.id }),
-        item: (_, args, ctx) => db2.query(`SELECT * FROM items WHERE id = ${args.id};`), //find(db.items, { id: args.id }),
-        me: (_, args, ctx) => db2.query(`SELECT * FROM users WHERE id = ${user.id};`)
+        category: async (_, args, ctx) => ((await db2.query(`SELECT * FROM categories WHERE id = '${args.id}';`))[0]), 
+        locations: async (_, args, ctx) => await db2.query(`SELECT * FROM locations;`), //db.locations,
+        vendor: async (_, args, ctx) => ((await db2.query(`SELECT * FROM vendors WHERE id = '${args.id}';`))[0]),
+        item: async (_, args, ctx) => ((await db2.query(`SELECT * FROM items WHERE id = '${args.id}';`))[0]), 
+        me: async (_, args, ctx) => ctx.state.user
         //{
             // Make sure user is logged in
-            
             // user is authenticated
             //return find(db.users, { id: user.id }) 
         //}
     },
     Category: {
-        items: (category) => db2.query(`SELECT * FROM items WHERE category_id = ${category.id};`) // filter(db.items, { category_id: category.id })
+        items: async (category) => await db2.query(`SELECT * FROM items WHERE category_id = '${category.id}';`) // filter(db.items, { category_id: category.id })
     },
     Item: {
-        category: (item) => db2.query(`SELECT * FROM categories WHERE id = ${item.category_id};`), //find(db.categories, { id: item.category_id }),
-        vendor: (item) => db2.query(`SELECT * FROM vendors WHERE id = ${item.vendor_id};`)//find(db.vendors, { id: item.vendor_id })
+        category: async (item) => ((await db2.query(`SELECT * FROM categories WHERE id = '${item.category_id}';`))[0]), //find(db.categories, { id: item.category_id }),
+        vendor: async  (item) => ((await db2.query(`SELECT * FROM vendors WHERE id = '${item.vendor_id}';`))[0])
     },
     Vendor: {
-        locations: (vendor) => db2.query(`SELECT * FROM locations WHERE id = ${vendor.id};`), //filter(db.locations, { vendor_id: vendor.id }),
-        user: (vendor) => db2.query(`SELECT * FROM users WHERE id = ${vendor.user_id};`) //find(db.users, { id: vendor.user_id })
+        locations: async (vendor) => await db2.query(`SELECT * FROM locations WHERE id = '${vendor.id}';`), //filter(db.locations, { vendor_id: vendor.id }),
+        user: async (vendor) => ((await db2.query(`SELECT * FROM users WHERE id = '${vendor.user_id}';`))[0]) //find(db.users, { id: vendor.user_id })
     },
     Location: { 
-        vendor: (location) => db2.query(`SELECT * FROM vendors WHERE id = ${location.vendor_id};`) //find(db.vendors, { id: location.vendor_id })
+        vendor: async (location) => ((await db2.query(`SELECT * FROM vendors WHERE id = '${location.vendor_id}';`))[0]) //find(db.vendors, { id: location.vendor_id })
     },
     User: {
 
     },
     Mutation: {
-        updateUser: (_, { id, is_vendor}, ctx) => {
+        updateVendorStatus: async (_, { id, is_vendor}, ctx) => {
             console.log(id);
             console.log(is_vendor);
-            let user =  find(db.users, { id: id })
+            let user = await db2.query(`UPDATE users
+                SET is_vendor = True
+            WHERE id = ${id};`);
             console.log(user);
-            console.log('ctx.user')
-            console.log(ctx.user);
             // if (!ctx.user) {
             //     throw new Error('No user with that email')
             // }
 
-            // console.log("token sever");
-            // console.log(token);
-            return user;
+            return JSON.stringify(user);
         },
         // Handle user signup
-        signup: async (_, { username, first_name, last_name, email, password }) => {
+        signup: async (_, { user_name, first_name, last_name, email, password }) => {
             console.log('inside mutation');
-            let password = await bcrypt.hash(password, 10);
-            let signupQuery = (username, first_name, last_name, email, password) =>
-              db2.query(`INSERT INTO "public"."users"("username","first_name","last_name","email","password") 
-              VALUES('${username}','${first_name}','${last_name}','${email}','${password}') 
-              RETURNING "id", "username", "first_name", "last_name", "email";`)
+            let passwordHash = await bcrypt.hash(password, 10);
+            let signupQuery = await db2.query(`INSERT INTO users (user_name, first_name, last_name, email, password) 
+              VALUES('${user_name}','${first_name}','${last_name}','${email}','${passwordHash}') RETURNING id;`);
 
-            // const user = await db.users.push({
-            //     username,
-            //     email,
-            //     password: await bcrypt.hash(password, 10)
-            // })
-            // Return json web token
             let token = jsonwebtoken.sign(
-                { id: user.id, email: user.email },
+                { id: signupQuery, email: email },
                 signature,
                 { expiresIn: '1y' }
             )
-            console.log("token sever");
-            console.log(token);
-            return token
+            let payload = { token: token, 
+                            isVendor: false, 
+                            id: signupQuery[0].id,  
+                            username: user_name, 
+                            email: email, 
+                            firstname: first_name, 
+                            lastname: last_name 
+                        };
+                        console.log(payload);
+            return JSON.stringify(payload);
         },
 
         // Handles user login

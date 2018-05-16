@@ -25,7 +25,6 @@ router.use(jwtParser);
 // jwtParser
 router.all('/graphql', koaBody(), 
   graphql(ctx => {
-    console.dir(ctx.state);
     return {
     schema,
     context: ctx.state

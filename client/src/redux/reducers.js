@@ -13,7 +13,7 @@ import db from '../db';
 
 
 const initialState = {
-    locations: db.locations,
+    locations: [],
     products: {},
     menuOpen: false,
     modalOpen: false,
