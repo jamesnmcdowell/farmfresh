@@ -6,7 +6,8 @@ import {
     updateProductsAC,
     updateVendorByIdAC,
     updateUserLocationAC,
-    createAccountAC
+    createAccountAC,
+    createVendorAC
 } from './actions';
 
 import db from '../db';
@@ -20,7 +21,8 @@ const initialState = {
     formType: 'logIn',
     currentVendor: null,
     userLocation: null,
-    currentUser: null
+    currentUser: null,
+    isVendor: true    
 };
 
 const reducerRoutes = {
@@ -46,6 +48,9 @@ const reducerRoutes = {
         ...state, currentUser: action.payload
     }),
     [createAccountAC]: (state, action) => ({
+        ...state, currentUser: action.payload
+    }),
+    [createVendorAC]: (state, action) => ({
         ...state, currentUser: action.payload
     }),
     default: (state, action) => state

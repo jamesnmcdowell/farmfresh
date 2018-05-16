@@ -73,8 +73,6 @@ export const RegisterForm = ({ state, handleSubmit, handleChange, history, dispa
                 // .catch(err => console.log(err))
             }> Create Account</button>
     </form>
-toggleLoginModal
-
 
 let mapStateToProps = (state, props) => state;
 let mapDispatchToProps = dispatch => (
