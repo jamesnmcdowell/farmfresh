@@ -23,11 +23,11 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
                 <hr/>
 		    </li>
             <li>
-                <a href="/" >
+                <Link to="/become-a-vendor" onClick={() => { toggleMobileMenu(); }}>
                     <div>
                         <span>Become a Vendor</span>
                     </div>
-                </a>
+                </Link>
             </li>
             <li>
                 <hr />
