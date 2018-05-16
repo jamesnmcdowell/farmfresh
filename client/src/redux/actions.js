@@ -159,21 +159,36 @@ export const createAccountAC = async (dispatch, user) => {
     console.log("im inside");
     console.log(user);
     let createMutation = `mutation{
-      signup (username: "${user.username}", email: "${user.email}", password: "${user.password}")
+      signup (user_name: "${user.username}",first_name: "${user.firstname}", last_name: "${user.lastname}",  email: "${user.email}", password: "${user.password}")
     }`
     try {
-        let token = await queryGraphQL(createMutation);
-        let payload = { token: token.data.signup, user: { id: 1, isVendor: true, username: user.username, email: user.email } };
-        localStorage.setItem('currentUser', JSON.stringify(payload));
-        console.log(token.data.signup);
+        let payload = await queryGraphQL(createMutation);
+        let currentUser = payload.data.signup;
+        localStorage.setItem('currentUser', currentUser);
         dispatch({
             type: createAccountAC.toString(),
-            payload: payload
+            payload: JSON.parse(currentUser,10)
+        });
+        return currentUser;
+    } catch (e) {
+        console.error(e);
+    }  
+};  
+
+export const updateVendorStatusAC = async (dispatch, userId) => {
+    console.log("im inside");
+    let vendorStatusMutation = `mutation{
+      updateVendorStatus (id: "${userId}",is_vendor: "${true}")
+    }`
+    try {
+        let payload = await queryGraphQL(vendorStatusMutation);
+        dispatch({
+            type: createAccountAC.toString(),
         });
     } catch (e) {
         console.error(e);
     }
-};  
+}; 
     
 
 toggleMobileMenu.toString = () => 'TOGGLE_MOBILE_MENU';

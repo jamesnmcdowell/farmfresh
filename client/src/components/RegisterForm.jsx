@@ -4,8 +4,9 @@ import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createAccountAC } from '../redux/actions';
 import { toggleLoginModal } from '../redux/actions';
+import { setToken } from '../redux/actions';
 
-export const RegisterForm = ({ state, handleSubmit, handleChange, history, dispatch, toggleLoginModal, createAccountAC }) =>
+export const RegisterForm = ({ state, handleSubmit, handleChange, history, dispatch, toggleLoginModal, createAccountAC, setToken }) =>
     <form className="login-form" onSubmit={handleSubmit}>
         <label> Email </label>
         <div>
@@ -66,7 +67,7 @@ export const RegisterForm = ({ state, handleSubmit, handleChange, history, dispa
                     lastname: state.lastname
                 })
                 // .then(token => { localStorage.setItem('token', JSON.stringify(token)); return token })
-                // .then(token => setToken(token))
+                .then(token =>{ console.log(token); setToken(token)   })  
                 .then( () => { toggleLoginModal()} )
                 // .then(res => history.push('/'))
                 // .catch(err => console.log(err))
@@ -79,10 +80,10 @@ let mapStateToProps = (state, props) => state;
 let mapDispatchToProps = dispatch => (
     {
         toggleLoginModal: booleanVal => dispatch(toggleLoginModal(booleanVal)),
-        createAccountAC: user => createAccountAC(dispatch, user)
+        createAccountAC: user => createAccountAC(dispatch, user),
+        setToken: (token) => dispatch(setToken(token))
     }
 );
-
 let RegisterFormState = connect(
     mapStateToProps,
     mapDispatchToProps
