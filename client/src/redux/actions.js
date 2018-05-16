@@ -163,7 +163,7 @@ export const createAccountAC = async (dispatch, user) => {
     }`
     try {
         let token = await queryGraphQL(createMutation);
-        let payload = { token: token.data.signup, user: { username: user.username, email: user.email } };
+        let payload = { token: token.data.signup, user: { id: 1, isVendor: true, username: user.username, email: user.email } };
         localStorage.setItem('currentUser', JSON.stringify(payload));
         console.log(token.data.signup);
         dispatch({
