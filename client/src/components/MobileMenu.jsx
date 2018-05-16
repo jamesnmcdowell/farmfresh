@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { toggleLoginModal } from '../redux/actions';
 import { checkForm } from '../redux/actions';
 import { connect } from 'react-redux';
@@ -10,7 +10,6 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
 
     return (
     <div className={(menuOpen) ? "mobile-menu-wrapper menu-open" : "mobile-menu-wrapper"}>
-        {currentUser ?
         <ul className="mobile-menu-list">
             <li>
                     <Link to="/" onClick={() => { toggleMobileMenu(); }}>
@@ -29,6 +28,8 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
                     </div>
                 </Link>
             </li>
+        {currentUser ?
+            <Fragment>
             <li>
                 <hr />
             </li>
@@ -48,30 +49,10 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
                 <div className="anchor-actions">
                     <span>Log out</span>
                 </div>
-            </li>          
-        </ul>
-                    :
-        <ul className="mobile-menu-list">
-            <li>
-                <Link to="/" onClick={() => { toggleMobileMenu(); }}>
-                    <div>
-                        <span>Home</span>
-                    </div>
-                </Link>
-            </li>
-            <li>
-                <hr />
-            </li>
-            <li>
-                <a href="/" >
-                    <div>
-                        <span>Become a Vendor</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <hr />
-            </li>
+            </li>  
+            </Fragment>
+            :
+            <Fragment>
             <li>
                 <div className="anchor-actions" onClick={() => { toggleLoginModal(); checkForm('signUp'); toggleMobileMenu(); }}>
                     <span>Sign up</span>
@@ -89,10 +70,12 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
                     </div>
                 </a>
             </li>
-        </ul>
+            </Fragment>
         }
-        </div> 
-    )
+        </ul>
+    </div>
+    )       
+       
 }
 let mapStateToProps = (state, props) => ({
     menuOpen: state.menuOpen,

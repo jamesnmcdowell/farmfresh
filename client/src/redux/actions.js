@@ -123,6 +123,18 @@ export const updateProductsAC = async (dispatch, type, id) => {
                 }
                 vendor {
                     name
+                    locations {
+                    id
+                    name
+                    lat
+                    lng
+                    start_time
+                    end_time
+                    address
+                    city
+                    state
+                    zip
+                }
                 }   
             }
             }
@@ -159,15 +171,28 @@ export const createAccountAC = async (dispatch, user) => {
     console.log("im inside");
     console.log(user);
     let createMutation = `mutation{
-      signup (user_name: "${user.username}",first_name: "${user.firstname}", last_name: "${user.lastname}",  email: "${user.email}", password: "${user.password}")
+        signup (user_name: "${user.username}",first_name: "${user.firstname}", 
+        last_name: "${user.lastname}",  
+        email: "${user.email}", password: "${user.password}") {
+            token
+            is_vendor
+            id
+            user_name
+            first_name
+            last_name
+            email
+        }
     }`
+
     try {
         let payload = await queryGraphQL(createMutation);
         let currentUser = payload.data.signup;
-        localStorage.setItem('currentUser', currentUser);
+        currentUser = { ...currentUser, is_vendor: false }
+        console.log(currentUser);
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
         dispatch({
             type: createAccountAC.toString(),
-            payload: JSON.parse(currentUser,10)
+            payload: currentUser
         });
         return currentUser;
     } catch (e) {
@@ -175,15 +200,51 @@ export const createAccountAC = async (dispatch, user) => {
     }  
 };  
 
-export const updateVendorStatusAC = async (dispatch, userId) => {
+export const loginAccountAC = async (dispatch, user) => {
     console.log("im inside");
-    let vendorStatusMutation = `mutation{
-      updateVendorStatus (id: "${userId}",is_vendor: "${true}")
-    }`
+    console.log(user);
+    let loginMutation = ` mutation {
+		login ( email: "${user.email}", password: "${user.password}") {
+			token
+			id
+			user_name
+			first_name
+            last_name
+            is_vendor
+	    }
+    }`;
     try {
-        let payload = await queryGraphQL(vendorStatusMutation);
+        let payload = await queryGraphQL(loginMutation);
+        console.log(payload);
+        let currentUser = payload.data.login;
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        console.log(currentUser);
         dispatch({
             type: createAccountAC.toString(),
+            payload: currentUser
+        });
+        return currentUser;
+    } catch (e) {
+        console.error(e);
+    }
+};  
+
+export const createVendorAC = async (dispatch, userId) => {
+    console.log("im inside");
+    console.log(userId);
+    let userLocalStorage = JSON.parse(localStorage.getItem('currentUser'));
+    console.log(userLocalStorage);
+    let userLocalStorageUpdated = { ...userLocalStorage, is_vendor: true };
+    console.log(userLocalStorageUpdated);
+    localStorage.setItem('currentUser', JSON.stringify(userLocalStorageUpdated));
+    let createVendorMutation = `mutation{
+      createVendor (id: "${userId}")
+    }`;
+    let payload = await queryGraphQL(createVendorMutation);
+    try {
+        dispatch({
+            type: createAccountAC.toString(),
+            payload: userLocalStorageUpdated
         });
     } catch (e) {
         console.error(e);
@@ -199,14 +260,5 @@ updateProductsAC.toString = () => 'UPDATE_PRODUCTS_AC';
 updateVendorByIdAC.toString = () => 'UPDATE_VENDOR_BY_ID_AC';
 updateUserLocationAC.toString = () => 'UPDATE_USER_LOCATION_AC';
 createAccountAC.toString = () => 'CREATE_ACCOUNT_AC';
-
-
-// export let createAccount = (user) =>
-//     fetch('/users', {
-//         body: JSON.stringify(user),
-//         method: 'POST',
-//         headers: {
-//             'content-type': 'application/json'
-//         }
-//     })
-//         .then(res => res.json())
+createVendorAC.toString = () => 'CREATE_VENDOR_AC';
+loginAccountAC.toString = () => 'LOGIN_ACCOUNT_AC';
