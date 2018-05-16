@@ -1,6 +1,7 @@
 const { find, filter } = require('lodash');
 const { makeExecutableSchema } = require('graphql-tools');
 const db = require('../client/src/db');
+const db2 = require('./database')
 const bcrypt = require('bcrypt');
 const jsonwebtoken = require('jsonwebtoken');
     
@@ -64,7 +65,7 @@ const typeDefs = `
     me: User
   }
   type Mutation {
-    signup (username: String!, email: String!, password: String!): String
+    signup (username: String!, first_name: String!, last_name: String!, email: String!, password: String!): String
     login (email: String!, password: String!): String
     createUser(first_name: String!, last_name: String!, email: String!): User!
     updateUser(id: Int!, first_name: String, last_name: String is_vendor: Boolean, email: String): String
@@ -80,42 +81,44 @@ let checkUser = (ctx) => {
 
 const resolvers = {
     Query: {
-        vendors: (_, args, ctx) => db.vendors,
-        categories: (_, args, ctx) => db.categories,
-        users: (_, args, ctx) => db.users,
-        items: (_, args, ctx) => {
+        vendors: (_, args, ctx) => db2.query(`SELECT * FROM vendors;`), //db.vendors
+        categories: (_, args, ctx) => db2.query(`SELECT * FROM categories;`), //db.categories,
+        users: (_, args, ctx) => db2.query(`SELECT * FROM users;`), //db.users,
+        items: (_, args, ctx) => db2.query(`SELECT * FROM items;`),
+            //{
             // checkUser(ctx);
             // if (ctx.user !== venderUser) {
             //     // ret all items currently for sale
             // } else {
             //     //return all venitems
             // }
-             return db.items 
-            },
-        category: (_, args, ctx) => find(db.categories, { id: args.id }),
-        locations: (_, args, ctx) => db.locations,
-        vendor: (_, args, ctx) => find(db.vendors, { id: args.id }),
-        item: (_, args, ctx) => find(db.items, { id: args.id }),
-        me: (_, args, ctx) => {
+            // return db.items 
+            //},
+        category: (_, args, ctx) => db2.query(`SELECT * FROM categories WHERE id = ${args.id};`), //find(db.categories, { id: args.id }),
+        locations: (_, args, ctx) => db2.query(`SELECT * FROM locations;`), //db.locations,
+        vendor: (_, args, ctx) => db2.query(`SELECT * FROM vendors WHERE id = ${args.id};`), //find(db.vendors, { id: args.id }),
+        item: (_, args, ctx) => db2.query(`SELECT * FROM items WHERE id = ${args.id};`), //find(db.items, { id: args.id }),
+        me: (_, args, ctx) => db2.query(`SELECT * FROM users WHERE id = ${user.id};`)
+        //{
             // Make sure user is logged in
             
             // user is authenticated
-            return find(db.users, { id: user.id }) 
-        }
+            //return find(db.users, { id: user.id }) 
+        //}
     },
     Category: {
-        items: (category) => filter(db.items, { category_id: category.id })
+        items: (category) => db2.query(`SELECT * FROM items WHERE category_id = ${category.id};`) // filter(db.items, { category_id: category.id })
     },
     Item: {
-        category: (item) => find(db.categories, { id: item.category_id }),
-        vendor: (item) => find(db.vendors, { id: item.vendor_id })
+        category: (item) => db2.query(`SELECT * FROM categories WHERE id = ${item.category_id};`), //find(db.categories, { id: item.category_id }),
+        vendor: (item) => db2.query(`SELECT * FROM vendors WHERE id = ${item.vendor_id};`)//find(db.vendors, { id: item.vendor_id })
     },
     Vendor: {
-        locations: (vendor) => filter(db.locations, { vendor_id: vendor.id }),
-        user: (vendor) => find(db.users, { id: vendor.user_id })
+        locations: (vendor) => db2.query(`SELECT * FROM locations WHERE id = ${vendor.id};`), //filter(db.locations, { vendor_id: vendor.id }),
+        user: (vendor) => db2.query(`SELECT * FROM users WHERE id = ${vendor.user_id};`) //find(db.users, { id: vendor.user_id })
     },
     Location: { 
-        vendor: (location) => find(db.vendors, { id: location.vendor_id })
+        vendor: (location) => db2.query(`SELECT * FROM vendors WHERE id = ${location.vendor_id};`) //find(db.vendors, { id: location.vendor_id })
     },
     User: {
 
@@ -137,13 +140,19 @@ const resolvers = {
             return user;
         },
         // Handle user signup
-        signup: async (_, { username, email, password }) => {
+        signup: async (_, { username, first_name, last_name, email, password }) => {
             console.log('inside mutation');
-            const user = await db.users.push({
-                username,
-                email,
-                password: await bcrypt.hash(password, 10)
-            })
+            let password = await bcrypt.hash(password, 10);
+            let signupQuery = (username, first_name, last_name, email, password) =>
+              db2.query(`INSERT INTO "public"."users"("username","first_name","last_name","email","password") 
+              VALUES('${username}','${first_name}','${last_name}','${email}','${password}') 
+              RETURNING "id", "username", "first_name", "last_name", "email";`)
+
+            // const user = await db.users.push({
+            //     username,
+            //     email,
+            //     password: await bcrypt.hash(password, 10)
+            // })
             // Return json web token
             let token = jsonwebtoken.sign(
                 { id: user.id, email: user.email },
