@@ -1,0 +1,648 @@
+\d recipes
+\q
+\d recipes
+ALTER TABLE recipes ADD COLUMN cookmins INT;
+\d recipes
+ALTER TABLE recipes REMOVE COLUMN cookmins;
+ALTER TABLE recipes DELETE COLUMN cookmins;
+ALTER TABLE recipes DROP COLUMN cookmins;
+ALTER TABLE recipes ADD COLUMN cookmins INT NOT NULL;
+\q
+\d
+\d recipes
+SELECT * from recipes
+SELECT * FROM recipes;
+SELECT * from recipes;
+\d recipes
+\q
+\d
+\d recipes
+\d images
+INSERT INTO public.images (createdon, link, recipe_id) VALUES (current_timestamp, https://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/217/426/0198552_630x355.jpg, 1);
+INSERT INTO public.images (createdon, link, recipe_id) VALUES (current_timestamp, 'https://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/217/426/0198552_630x355.jpg', 1);
+\d users
+INSERT INTO public.user (username, hpass, email, fname, lname) VALUES ('james',"","james@james.com","James","McDowell");
+INSERT INTO public.user (username, hpass, email, fname, lname) VALUES ('james',"ABC","james@james.com","James","McDowell");
+INSERT INTO user (username, hpass, email, fname, lname) VALUES ('james',"ABC","james@james.com","James","McDowell");
+INSERT INTO public.users (username, hpass, email, fname, lname) VALUES ('james',"ABC","james@james.com","James","McDowell");
+INSERT INTO public.users (username, hpass, email, fname, lname) VALUES ('james','ABC','james@james.com','James','McDowell');
+\d users
+SELECT * FROM users;
+\d images
+\d recipes
+SELECT * FROM users;
+INSERT INTO public.recipes (title, ver, derived_id, prepmins, image_id, createdon, descr, tag, user_id, ingredients, directions, cookmins) VALUES ('Peanut Butter Pie',1,'$1$',45,,current_timestamp,'Some description','',1,'Lots of ingredients','Lots of directions',30);
+INSERT INTO public.recipes (title, ver, derived_id, prepmins, image_id, createdon, descr, tag, user_id, ingredients, directions, cookmins) VALUES ('Peanut Butter Pie',1,'$1$',45,1,current_timestamp,'Some description','',1,'Lots of ingredients','Lots of directions',30);
+INSERT INTO public.recipes (title, ver, derived_id, prepmins, image_id, createdon, descr, tag, user_id, ingredients, directions, cookmins) VALUES ('Peanut Butter Pie',1,'$1$',45,1,current_timestamp,'Some description','',1,{ 'Lots of ingredients' },{ 'Lots of directions' },30);
+INSERT INTO public.recipes (title, ver, derived_id, prepmins, image_id, createdon, descr, tag, user_id, ingredients, directions, cookmins) VALUES ('Peanut Butter Pie',1,'$1$',45,1,current_timestamp,'Some description','',1,'{ "1":"Peanut butter", "2":"Chocolate graham crackers" }','{ "1":"First direction", "2":"Second direction" }',30);
+INSERT INTO public.recipes (title, ver, derived_id, prepmins, image_id, createdon, descr, tag, user_id, ingredients, directions, cookmins) VALUES ('Peanut Butter Pie',1,'$1$',45,1,current_timestamp,'Some description','',1,'{ "1":"Peanut butter", "2":"Chocolate graham crackers" }','{ "1":"First direction", "2":"Second direction" }',30);
+SELECT * FROM recipes;
+DELETE FROM recipes WHERE id = 2;
+SELECT * FROM recipes;
+\d images
+INSERT INTO public.images (createdon, link, recipe_id) VALUES (current_timestamp, 'https://images.scrippsnetworks.com/up/tp/Scripps_-_Food_Category_Prod/217/426/0198552_630x355.jpg', 1);
+SELECT * FROM images;
+SELECT * FROM recipes;
+UPDATE recipes SET image_id=2 WHERE id = 1;
+SELECT * FROM recipes;
+SELECT * FROM images;
+\d
+SELECT * FROM users;
+\d ratings
+SELECT * FROM recipes;
+\d recipes
+SELECT * FROM recipes;
+SELECT * FROM images;
+SELECT * FROM recipes;
+SELECT * FROM ratings;
+\d ratings
+SELECT * FROM ratings;
+INSERT INTO public.ratings (rating_val, recipe_id) VALUES (5, 1);
+\d recipes
+SELECT * FROM images;
+SELECT * FROM recipes;
+\d images
+\d recipes
+\d ratings
+SELECT * FROM ratings;
+\q
+\d
+\d images
+\d
+\d users
+\d recipes
+db.query(SELECT * FROM recipes;)
+db.query(`SELECT * FROM users WHERE email='${email}'`);
+db.query(`SELECT * FROM users WHERE email='${email}'`);
+SELECT * FROM users;
+\d
+\d recipes
+\d
+\d
+\q
+CREATE TABLE categories (
+id SERIAL PRIMARY KEY,
+name VARCHAR (100) UNIQUE NOT NULL
+\q
+CREATE TABLE categories (
+id SERIAL PRIMARY KEY,
+name VARCHAR (100) UNIQUE NOT NULL
+);
+ALTER TABLE recipes
+      ADD COLUMN categories_id integer, 
+      ADD FOREIGN KEY (categories_id) 
+      REFERENCES categories (id)
+;
+CREATE TABLE cookbooks (
+id SERIAL,
+user_id INTEGER,
+recipe_id int[],
+ADD FOREIGN KEY (user_id)
+REFERENCES users (id)
+ADD FOREIGN KEY (recipe_id)
+REFERENCES recipes (id)
+);
+CREATE TABLE cookbooks (
+ id SERIAL PRIMARY KEY,
+ user_id INTEGER NOT NULL,
+ recipe_id int[],
+ ADD FOREIGN KEY (user_id)
+ REFERENCES users (id),
+ ADD FOREIGN KEY (recipe_id)
+ REFERENCES recipes (id)
+);
+\d
+CREATE TABLE cookbooks (
+ id SERIAL PRIMARY KEY,
+ user_id INTEGER NOT NULL,
+ recipe_id int[],
+ FOREIGN KEY (user_id) REFERENCES users (id),
+ FOREIGN KEY (recipe_id) REFERENCES recipes (id)
+);
+CREATE TABLE cookbooks (
+ id SERIAL PRIMARY KEY,
+ user_id INTEGER NOT NULL,
+ recipe_id int[],
+ FOREIGN KEY (user_id) REFERENCES users (id),
+);
+CREATE TABLE cookbooks (
+ id SERIAL PRIMARY KEY,
+ user_id INTEGER NOT NULL,
+ recipe_id int[],
+ FOREIGN KEY (user_id) REFERENCES users (id)
+);
+\q
+\q
+\d
+\d recipes
+CREATE TABLE ingredients (
+ id SERIAL PRIMARY KEY,
+ name VARCHAR (100) UNIQUE NOT NULL
+);
+ALTER TABLE recipes
+ ALTER COLUMN ingredients
+ TYPE int[];
+ALTER TABLE recipes
+ ALTER COLUMN ingredients
+ TYPE integer[];
+ALTER TABLE recipes DROP COLUMN ingredients;
+ALTER TABLE recipes ADD COLUMN ingredients int[];
+\d recipes
+\q
+\d
+\q
+\d
+\d categories
+\d recipes
+ALTER TABLE categories ADD COLUMN image_url VARCHAR;
+\d categories
+q
+\q
+\d categories
+\q
+ls
+\d
+\d categories
+\d recipes
+\q
+\d recipes
+ALTER TABLE recipes ADD COLUMN notes VARCHAR;
+\d
+\d cookbooks
+\q
+\d ingredients
+\d recipes
+SELECT * FROM recipes;
+\q
+SELECT * FROM recipes;
+\q
+\d cookbooks
+\d recipes
+\d ratings
+\q
+\d recipes
+SELECT * FROM recipes;
+SELECT * FROM recipes WHERE id IN ([1,3]);
+SELECT * FROM recipes WHERE id IN (1,3);
+\d recipes
+\d cookbooks
+\q
+\d recipes
+SELECT * FROM recipes;
+SELECT * FROM ratings
+ls
+\d ratings
+SELECT * FROM ratings;
+SELECT * FROM ratings;
+SELECT AVG(rating_val), COUNT(id) FROM ratings WHERE recipe_id=2;
+SELECT AVG(rating_val), COUNT(id) FROM ratings WHERE recipe_id='2';
+SELECT AVG(rating_val), COUNT(rating_val) FROM ratings WHERE recipe_id='2';
+SELECT AVG(rating_val), COUNT(rating_val) FROM ratings;
+SELECT AVG(rating_val), COUNT(rating_val) FROM ratings WHERE id = 2;
+SELECT * FROM ratings;
+SELECT AVG(rating_val), COUNT(rating_val) FROM ratings WHERE recipe_id = 1;
+INSERT INTO public.ratings ("rating_val", "recipe_id") VALUES (4, 1);
+SELECT * FROM ratings;
+SELECT AVG(rating_val), COUNT(rating_val) FROM ratings WHERE recipe_id = 1;
+SELECT * FROM cookbooks
+;
+\q
+SELECT * FROM recipes
+;
+SELECT * FROM recipes WHERE id IN (1,3);
+pwd
+ls
+\q
+SELECT * FROM recipes;
+SELECT directions FROM recipes WHERE id =1;
+ALTER TABLE recipes DELETE COLUMN directions;
+SELECT * FROM ingredients;
+\d recipes
+SELECT * FROM ingredients;
+SELECT * FROM recipes;
+\q
+\d
+\q
+SELECT * FROM recipes;
+\d
+\d categories
+ls
+INSERT INTO categories (name, image_url) VALUES ('breakfast',"https://www.bobevans.com/-/media/bobevans_com/images/our-restaurants/2017winter/big_egg_bfast_core_winterfy17.jpg?h=333&la=en&w=500&hash=0CADDF6BC5033B2EB4521129EF2201803FFA414E");
+INSERT INTO categories (name, image_url) VALUES ('breakfast',"https://www.bobevans.com/-/media/bobevans_com/images/our-restaurants/2017winter/big_egg_bfast_core_winterfy17.jpg?h=333&la=en&w=500&hash=0CADDF6BC5033B2EB4521129EF2201803FFA414E");
+INSERT INTO categories (name, image_url) VALUES ('breakfast','https://www.bobevans.com/-/media/bobevans_com/images/our-restaurants/2017winter/big_egg_bfast_core_winterfy17.jpg?h=333&la=en&w=500&hash=0CADDF6BC5033B2EB4521129EF2201803FFA414E');
+SELECT * FROM categories;
+INSERT INTO categories (name, image_url) VALUES ('breakfast','http://finedininglovers.cdn.crosscast-system.com/ImageAlbum/5858/original_blt.sandwiches.jpg');
+INSERT INTO categories (name, image_url) VALUES ('lunch','http://finedininglovers.cdn.crosscast-system.com/ImageAlbum/5858/original_blt.sandwiches.jpg');
+INSERT INTO categories (name, image_url) VALUES ('dinner','http://assets.kraftfoods.com/recipe_images/opendeploy/89336_640x428.jpg');
+INSERT INTO categories (name, image_url) VALUES ('dessert','https://images-gmi-pmc.edge-generalmills.com/5a2bc6ae-782b-4559-92eb-f084b1b170ed.jpg');
+INSERT INTO categories (name, image_url) VALUES ('soups','https://imagesvc.timeincapp.com/v3/mm/image?url=http%3A%2F%2Fcdn-image.myrecipes.com%2Fsites%2Fdefault%2Ffiles%2Fstyles%2Fmedium_2x%2Fpublic%2Fold-fashioned-chicken-noodle-soup-ck.jpg%3Fitok%3DZ8tmJK4T&w=800&q=85');
+INSERT INTO categories (name, image_url) VALUES ('salads','https://dingo.care2.com/pictures/greenliving/1146/1145877.large.jpg');
+INSERT INTO categories (name, image_url) VALUES ('snacks','http://watchfit.com/wp-content/uploads/2014/05/7-Healthy-late-night-snacks-that-will-NOT-undo-it-all.jpg');
+INSERT INTO categories (name, image_url) VALUES ('appetizers','https://tipbuzz.com/wp-content/uploads/Ritz-Cracker-Appetizers-1.jpg');
+SELECT * FROM recipes;
+UPDATE recipes SET image_url = 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2012/11/19/1/WU0313H_chocolate-peanut-butter-pie-recipe_s4x3.jpg.rend.hgtvcom.616.462.suffix/1371612178437.jpeg' WHERE id = 1;
+SELECT * FROM users;
+ALTER TABLE users RENAME COLUMN hpass TO password;
+ALTER TABLE users RENAME COLUMN fname TO firstname;
+ALTER TABLE users RENAME COLUMN lname TO lastname;
+SELECT * FROM users;
+SELECT * FROM categories;
+\d
+\d categories
+\d images
+\d recipes
+ALTER TABLE recipes RENAME COLUMN descr TO description;
+ALTER TABLE recipes RENAME COLUMN ver TO version;
+\d
+\d cookbooks
+\d ingredients
+\d ratings
+ALTER TABLE ratings UPDATE COLUMN rating_val TO rating_value;
+ALTER TABLE ratings RENAME COLUMN rating_val TO rating_value;
+\d recipe
+\d recipes
+\d
+\d recipes
+\d images
+\d recipes
+\d categories
+heroku pg:backups:capture
+\q
+SELECT * FROM categories;
+q
+\q
+ls
+\q
+SELECT * FROM categories
+;
+\q
+\d
+\d cookbooks
+\d users
+SELECT * FROM users;
+INSERT INTO users (username, password, email, firstname, lastname) VALUES ('chris', 'ABC', 'chris@chris.com', 'Chris', 'Goodell');
+INSERT INTO users (username, password, email, firstname, lastname) VALUES ('robby', 'ABC', 'robby@robby.robby', 'Robby', 'Ackerley');
+INSERT INTO users (username, password, email, firstname, lastname) VALUES ('kyle', 'ABC', 'kyle@kyle.com', 'Kyle', 'Booth');
+SELECT * FROM users;
+\d
+SELECT * FROM cookbooks;
+SELECT * FROM ingredients;
+ALTER TABLE ingredients ADD COLUMN image_url VARCHAR;
+\d recipes
+\d ingredients
+SELECT * FROM ingredients;
+INSERT INTO ingredients (name, image_url) VALUES ('tomatoes', 'https://media.istockphoto.com/photos/tomato-isolated-on-white-background-picture-id466175630?k=6&m=466175630&s=612x612&w=0&h=fu_mQBjGJZIliOWwCR0Vf2myRvKWyQDsymxEIi8tZ38=');
+INSERT INTO ingredients (name, image_url) VALUES ('beans', 'https://images-na.ssl-images-amazon.com/images/I/61snvtRA5yL._SL1500_.jpg'); 
+INSERT INTO ingredients (name, image_url) VALUES ('rice', 'http://yours4everorganic.com/yours4ever/wp-content/uploads/2017/01/basmati-rice-brown-1.jpg');
+INSERT INTO ingredients (name, image_url) VALUES ('chicken', 'https://c3.staticflickr.com/6/5810/30891382266_7c881630c9_z.jpg');
+INSERT INTO ingredients (name, image_url) VALUES ('pork', 'https://s3.amazonaws.com/finecooking.s3.tauntonclud.com/app/uploads/2017/04/24172528/porkshoulder-thumb1x1.jpg');
+SELECT * FROM ingredients;
+\q
+SELECT * FROM cookbooks
+;
+\d cookbooks
+ALTER TABLE cookbooks ADD COLUMN name VARCHAR;
+\q
+SELECT * FROM cookbooks;
+\q
+\d recipes
+ALTER TABLE recipes RENAME COLUMN name TO title;
+\d recipes
+ALTER TABLE recipes ALTER COLUMN ingredients TYPE VARCHAR;
+ALTER TABLE recipes ALTER COLUMN servings TYPE VARCHAR;
+ALTER TABLE recipes ALTER COLUMN directions TYPE VARCHAR;
+ALTER TABLE recipes ALTER COLUMN cookmins TYPE VARCHAR;
+ALTER TABLE recipes ALTER COLUMN prepmins TYPE VARCHAR;
+ALTER TABLE recipes REMOVE COLUMN createdon;
+ALTER TABLE recipes DELETE COLUMN createdon;
+ALTER TABLE recipes DROP COLUMN createdon;
+\d recipes
+\q
+\d recipes
+ALTER TABLE recipes ALTER COLUMN tags TYPE text[];
+ALTER TABLE recipes ALTER COLUMN tag TYPE text[];
+ALTER TABLE recipes ALTER COLUMN tag TYPE text[];
+\d recipes
+\d recipes
+SELECT * FROM recipes;
+ALTER TABLE recipes DROP COLUMN tag;
+ALTER TABLE rcipes ADD COLUMN tag text[];
+ALTER TABLE recipes ADD COLUMN tag text[];
+heroku pg:backups:capture
+ls
+\q
+\q
+SELECT * FROM recipes;
+SELECT * FROM ingredients;
+SELECT * FROM recipes;
+\q
+SELECT * FROM ingredients;
+SELECT * FROM ingredients;
+\q
+\q
+SELECT * FROM recipes;
+SELECT * FROM ingredients;
+\q
+SELECT * FROM ingredients;
+\q
+SELECT * FROM ingredients;
+\q
+\d
+\q
+\d
+\q
+SELECT * FROM cateogries
+;
+SELECT * FROM categories;
+\q
+CREATE TABLE users (
+  idSERIAL PRIMARY KEY,
+  emailVARCHAR,
+  passwordVARCHAR,
+  firstnameVARCHAR,
+  lastnameVARCHAR
+);
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR,
+  password VARCHAR,
+  firstname VARCHAR,
+  lastname VARCHAR
+);
+CREATE TABLE vendors (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users (id),
+  images TEXT[]
+);
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR
+);
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  description VARCHAR,
+  quantity INTEGER NOT NULL,
+  vendor_id INTEGER REFERENCES vendor (id),
+  category_id INTEGER REFERENCES category (id)
+);
+\d
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  description VARCHAR,
+  quantity INTEGER NOT NULL,
+  vendor_id INTEGER REFERENCES vendors (id),
+  category_id INTEGER REFERENCES category (id)
+);
+CREATE TABLE items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  description VARCHAR,
+  quantity INTEGER NOT NULL,
+  vendor_id INTEGER REFERENCES vendors (id),
+  category_id INTEGER REFERENCES categories (id)
+);
+CREATE TABLE locations (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users (id),
+  name VARCHAR NOT NULL,
+  description VARCHAR,
+  address VARCHAR NOT NULL,
+  city VARCHAR NOT NULL,
+  state VARCHAR(2),
+  zip INTEGER(5),
+  geocode VARCHAR,
+  starttime TIME NOT NULL,
+  endtime TIME NOT NULL,
+  validdays VARCHAR(7),
+  monday BOOLEAN NOT NULL,
+  tuesday BOOLEAN NOT NULL,
+  wednesday BOOLEAN NOT NULL,
+  thursday BOOLEAN NOT NULL,
+  friday BOOLEAN NOT NULL,
+  saturday BOOLEAN NOT NULL,
+  sunday BOOLEAN NOT NULL
+);
+CREATE TABLE locations (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users (id),
+  name VARCHAR NOT NULL,
+  description VARCHAR,
+  address VARCHAR NOT NULL,
+  city VARCHAR NOT NULL,
+  state VARCHAR(2),
+  zip VARCHAR(5),
+  geocode VARCHAR,
+  starttime TIME NOT NULL,
+  endtime TIME NOT NULL,
+  validdays VARCHAR(7),
+  monday BOOLEAN NOT NULL,
+  tuesday BOOLEAN NOT NULL,
+  wednesday BOOLEAN NOT NULL,
+  thursday BOOLEAN NOT NULL,
+  friday BOOLEAN NOT NULL,
+  saturday BOOLEAN NOT NULL,
+  sunday BOOLEAN NOT NULL
+);
+\d
+\q
+\d
+\d categories
+INSERT INTO categories (name) VALUES ('Dairy');
+INSERT INTO categories (name) VALUES ('Eggs');
+INSERT INTO categories (name) VALUES ('Vegetables');
+INSERT INTO categories (name) VALUES ('Meat');
+INSERT INTO categories (name) VALUES ('Fruits');
+INSERT INTO categories (name) VALUES ('Seafood');
+INSERT INTO categories (name) VALUES ('Pantry');
+INSERT INTO categories (name) VALUES ('Personal Care');
+\d
+\d vendors
+\d users
+INSERT INTO users (email, password, firstname, lastname) VALUES ('james@james.com','ABC','James','McDowell');
+INSERT INTO users (email, password, firstname, lastname) VALUES ('chris@chris.com','ABC','Chris','Goodell');
+\d
+\d vendors
+SELECT * FROM vendors;
+SELECT * FROM users;
+INSERT INTO vendors (user_id, images) VALUES (1,NULL);
+\d
+\d items
+INSERT INTO items (name, description, quantity, vendor_id, category_id) VALUES ('Clover Honey','Strong clover nectar aroma with light amber coloring. Delicate flavor with hints of freshly cut grass and hay.',5,1,1);
+SELECT * FROM categories;
+UPDATE items SET category_id = 7 WHERE id = 1;
+INSERT INTO items (name, description, quantity, vendor_id, category_id) VALUES ('Farm Fresh Eggs','Grade A Large eggs. Hens are free to forage and raised on grass.',10,1,2);
+INSERT INTO items (name, description, quantity, vendor_id, category_id) VALUES ('Milk','Raw unpasteurized milk from grass-fed cows.',10,1,1);
+SELECT * FROM items;
+SELECT * FROM categories;
+INSERT INTO items (name, description, quantity, vendor_id, category_id) VALUES ('Watermelon','Organic and seedless.',10,1,5);
+INSERT INTO items (name, description, quantity, vendor_id, category_id) VALUES ('Bacon','Hickory-smoked, thick-sliced bacon.',10,1,4);
+SELECT * FROM items
+;
+ALTER TABLE items ADD COLUMN unit_of_measure VARCHAR;
+ALTER TABLE items ADD COLUMN image_url VARCHAR;
+SELECT * FROM items;
+UPDATE items SET unit_of_measure = 'each' WHERE id IN (1);
+UPDATE items SET unit_of_measure = 'dozen' WHERE id IN (2);
+UPDATE items SET unit_of_measure = 'gallon' WHERE id IN (3);
+UPDATE items SET unit_of_measure = 'pound' WHERE id IN (4);
+UPDATE items SET unit_of_measure = 'pound' WHERE id IN (5);
+\d items
+ALTER TABLE items ADD COLUMN price MONEY;
+\d
+\d items
+\q
+\d
+SELECT * FROM locations;
+\d locations
+UPDATE locations SET geocode = '33.788181,-84.371338' WHERE id = 1;
+SELECT * FROM locations;
+UPDATE locations SET description = 'Roadside stand, all items available unless otherwise noted' WHERE id = 1;
+\q
+\d
+SELECT * FROM locations;
+SELECT * FROM users;
+\q
+create schema farmfresh-postgraphile;
+create schema farmfreshgraph;
+\q
+DROP SCHEMA farmfreshgraph
+ls
+d
+\d
+\q
+\q
+\d
+SELECT * FROM categories;
+\q
+\d
+\d locations
+ALTER TABLE locations ADD COLUMN vendor_id REFERENCES vendors (id);
+\d
+ALTER TABLE locations ADD COLUMN vendor_id REFERENCE vendors (id);
+ALTER TABLE locations ADD COLUMN vendor_id INTEGER REFERENCES vendors (id);
+ALTER TBLE locations DROP COLUMN user_id;
+ALTER TABLE locations DROP COLUMN user_id;
+\q
+\d vendors
+ALTER TABLE vendors ADD COLUMN name VARCHAR;
+\q
+pwd
+\d
+\d items
+\d items
+\d user
+\d users
+\d
+\d categories
+SELECT * FROM categories;
+SELECT * FROM categories;
+ALTER TABLE categories ADD COLUMN image_url VARCHAR;
+SELECT * FROM items;
+\d items
+\d locations
+ALTER TABLE locations REMOVE COLUMN geocode;
+ALTER TABLE locations DROP COLUMN geocode;
+ALTER TABLE locations ADD COLUMN lat DECIMAL;
+ALTER TABLE locations ADD COLUMN lng DECIMAL;
+\d users
+ALTER TABLE email ALTER COLUMN VARCHAR NOT NULL;
+ALTER TABLE users ALTER COLUMN email VARCHAR NOT NULL;
+SELECT * FROM users;
+ALTER TABLE users MODIFY COLUMN email VARCHAR NOT NULL;
+ALTER TABLE users ALTER COLUMN email NOT NULL;
+ALTER TABLE users ALTER COLUMN email SET NOT NULL;
+ALTER TABLE users ALTER COLUMN firstname SET NOT NULL;
+ALTER TABLE users ALTER COLUMN lastname SET NOT NULL;
+\d users
+\d vendors
+\d categories
+CREATE TABLE subcategories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR,
+  image_url VARCHAR
+);
+\d subcategories
+\d categories
+\d items
+ALTER TABLE items ADD COLUMN is_available BOOLEAN NOT NULL;
+ALTER TABLE items ADD COLUMN is_available BOOLEAN;
+SELECT * FROM items;
+UPDATE TABLE items SET is_available = true WHERE id IS NOT NULL;
+UPDATE items SET is_available = true WHERE id IS NOT NULL;
+SELECT * FROM items;
+SELECT * FROM vendors;
+SELECT * FROM users;
+SELECT * FROM locations;
+\q
+\d vendors
+\d users
+\d vendors
+ALTER TABLE vendors ADD COLUMN about_description VARCHAR;
+ALTER TABLE vendors ADD COLUMN product_description VARCHAR;
+ALTER TABLE vendors ADD COLUMN address VARCHAR;
+ALTER TABLE vendors ADD COLUMN city VARCHAR;
+ALTER TABLE vendors ADD COLUMN state VARCHAR(2);
+ALTER TABLE vendors ADD COLUMN zipcode VARCHAR(10);
+\d users
+\d
+\d locations
+\d vendors
+ALTER TABLE vendors DROP COLUMN zipcode;
+ALTER TABLE vendors ADD COLUMN zip VARCHAR(10);
+ALTER TABLE vendors ALTER COLUMN zip SET TYPE VARCHAR(7);
+ALTER TABLE vendors ALTER COLUMN zip SET VARCHAR(7);
+ALTER TABLE vendors ALTER COLUMN zip SET DATATYPE VARCHAR(7);
+ALTER TABLE vendors DROP COLUMN zip;
+ALTER TABLE vendors ADD COLUMN zip VARCHAR(7);
+\d locations
+ALTER TABLE vendors DROP COLUMN zip;
+ALTER TABLE vendors ADD COLUMN zip VARCHAR(5);
+\d vendors
+\q
+\d users
+\d vendors
+\d items
+ALTER TABLE users ADD COLUMN is_vendor BOOLEAN NOT NULL;
+ALTER TABLE users ADD COLUMN is_vendor BOOLEAN;
+\d users
+\d  locations
+ALTER TABLE locations RENAME COLUMN starttime TO start_time;
+ALTER TABLE locations RENAME COLUMN endtime TO end_time;
+ALTER TABLE locations RENAME COLUMN validdays TO valid_days;
+ALTER TABLE users RENAME COLUMN firstname TO first_name;
+ALTER TABLE users RENAME COLUMN lastname TO last_name;
+\q
+ls
+SELECT * FROM items;
+SELECT * FROM locations;
+\q
+\d users
+SELECT * FROM users;
+SELECT * FROM \d users
+UPDATE users SET is_vendor = TRUE WHERE id = 1;
+UPDATE users is_vendor = TRUE WHERE id = 1;
+UPDATE users is_vendor = true WHERE id = 1;
+UPDATE TABLE users is_vendor = true WHERE id = 1;
+UPDATE users SET is_vendor = t WHERE id = 1;
+UPDATE users SET is_vendor = true WHERE id = 1;
+UPDATE users SET is_vendor = True WHERE id = 1;
+UPDATE users SET is_vendor = "true" WHERE id = 1;
+UPDATE users SET is_vendor = TRUE WHERE id = 1;
+SELECT * FROM users;
+UPDATE users SET password = 123;
+SELECT * FROM users;
+UPDATE users SET password = ABC;
+UPDATE users SET password = 'ABC';
+\d users
+\q
+\d
+\d vendors
+INSERT INTO vendors (user_id) VALUES ('999');
+\d users
+SELECT * FROM USERS;
+\d
+\q
+\d
+\s categories
