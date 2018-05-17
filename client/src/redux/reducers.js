@@ -11,7 +11,8 @@ import {
     updateVendorDataAC,
     addProductAC,
     addLocationAC,
-    updateAllLocationsAC
+    updateAllLocationsAC,
+    updateItemByIdAC
 } from './actions';
 
 import db from '../db';
@@ -24,6 +25,7 @@ const initialState = {
     modalOpen: false,
     formType: 'logIn',
     currentVendor: null,
+    currentItem: null,
     userLocation: null,
     currentUser: null,
     isVendor: true,
@@ -73,9 +75,11 @@ const reducerRoutes = {
     [updateAllLocationsAC]: (state, action) => ({
         ...state, allLocations: action.payload
     }),
+    [updateItemByIdAC]: (state, action) => ({
+        ...state, currentItem: action.payload
+    }),
     default: (state, action) => state
 }
-
 const rootReducer = (state = initialState, action) => {
     let reducerAction = reducerRoutes[action.type] || reducerRoutes.default
     return reducerAction(state, action)

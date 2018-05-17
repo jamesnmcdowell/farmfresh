@@ -13,6 +13,7 @@ import VendorLocationsScreen from './components/VendorLocationsScreen';
 import VendorProductsScreen from './components/VendorProductsScreen';
 import VendorProfile from './components/VendorProfile';
 import ExploreVendors from './components/ExploreVendors';
+import ProductViewScreen from './components/ProductViewScreen';
 
 
 let Router = () =>
@@ -22,6 +23,7 @@ let Router = () =>
             <Route path="/become-a-vendor" component={VendorSignupScreen} />
             <Route path="/map" component={MapScreen} />
             <Route path="/products/:type/:id" exact component={ProductListScreen} />
+            <Route path="/products/:id" exact component={ProductViewScreen} />
             <Route path="/vendors/:id" exact component={VendorScreen} />
             <Route path="/vendor/profile" exact component={VendorProfile} />
             <Route path="/vendor/products" exact component={VendorProductsScreen} />

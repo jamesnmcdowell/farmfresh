@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import ProductCard from './ProductCard';
 import Shell from './Shell';
 import { updateProductsAC, updateUserLocationAC } from '../redux/actions';
+import MDSpinner from "react-md-spinner";
+
 
 class ProductListScreen extends Component {
     constructor(props) {
@@ -46,7 +48,7 @@ class ProductListScreen extends Component {
         return (
             <Shell>
                 <div className="product-list">
-                    {isLoading ? <h1> loading </h1> : products.length > 0 ?
+                    {isLoading ? <div className="loading-spinner"> <MDSpinner size={50} singleColor="#FEC04A" color2="#673ab7" /> </div> : products.length > 0 ?
                         products.map((product, i) => <ProductCard key={`${product.id}_${i}`} loadingLocation={loadingLocation} userLocation={userLocation} product={product} />) :
                         <p>no products found </p>
                     }

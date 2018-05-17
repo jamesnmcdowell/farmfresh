@@ -11,11 +11,10 @@ let LocationCard = ({ product, match }) =>
                     <div className="product-card-details">
                         <span className="pcard-name"> {product.name} </span>
                         <span> {product.address}  </span>
-                        <span>  </span>
+                        <span> {product.city}, {product.state} </span>
                         <span> {product.start_time} - {product.end_time} </span>
                     </div>
                     <div className="">
-                        <span className="pcard-vendor"> {product.valid_days} </span>
                     </div>
                 </div>
               

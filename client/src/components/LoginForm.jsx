@@ -33,6 +33,9 @@ export const LoginForm = ({ state, handleSubmit, handleChange, history, toggleLo
                     email: state.email,
                     password: state.password
                 })
+
+                .then(token => { console.log(token); setToken(token) })
+                .then(() => { toggleLoginModal() })
                 // .then(token => { localStorage.setItem('token', JSON.stringify(token)); return token })
                 // .then(token => { console.log(token); setToken(token) })
                 // .then(() => { toggleLoginModal() })

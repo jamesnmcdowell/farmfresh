@@ -33,6 +33,7 @@ class VendorProfile extends Component {
             <Shell>
                 <VendorDashboardNav/>
                 <div className="vendor-profile-header">
+                    <img src={vendorProfile.image_url} />
                     <h1> {vendorProfile.name}'s Profile </h1>
                     <p>{vendorProfile.address} {vendorProfile.city}, {vendorProfile.state}</p>
                 </div>
