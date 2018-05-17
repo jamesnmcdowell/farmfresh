@@ -41,19 +41,13 @@ let mapComponent = ({caches=[], currentLat=33.848460, currentLng=-84.37360}) => 
     defaultZoom={15}
     defaultCenter={{ lat: currentLat, lng: currentLng }}
   >
-    {/* <Marker position={{lat:currentLat, lng:currentLng}} icon="/UserLocation.png"/> */}
-    {/* <MarkerClusterer> */}
-      <Marker 
-        position={{ lat: 33.8487, lng: -84.3734 }} 
-        title="Hickory Farms" 
-        // onClick={props.onToggleOpen} 
-        >
-        {/* <InfoWindow /> */}
-      </Marker>
-      {/* {caches.map( ({latitude:lat,longitude:lng, id, name}) => {
+    <Marker position={{lat:currentLat, lng:currentLng}} icon="/UserLocation.png"/>
+    <MarkerClusterer>
+      <Marker position={{ lat: 33.8487, lng: -84.3734 }} title="Atlanta Tech Village" />
+      {caches.map( ({latitude:lat,longitude:lng, id, name}) => {
         return <Marker position={{lat, lng}} title={name} key={id}/>;
-      })} */}
-    {/* </MarkerClusterer> */}
+      })}
+    </MarkerClusterer>
   </GoogleMap>;
 };
 
