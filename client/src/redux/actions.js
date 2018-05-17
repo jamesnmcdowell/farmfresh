@@ -1,4 +1,4 @@
-import { queryGraphQL, queryGraphQL2 } from '../ajax';
+import { queryGraphQL, queryGraphQLToken } from '../ajax';
 import { getMatchingLibraries } from '../util';
 
 export const toggleMobileMenu = booleanVal =>
@@ -77,6 +77,81 @@ export const updateVendorByIdAC = async (dispatch, id) => {
 };    
 
     
+export const updateVendorDataAC = async (dispatch) => {
+    console.log("updateVendorDataAC");
+    let queryVendor = `{
+            me {
+                id
+                first_name
+                email
+                vendor {
+                    name
+                    id
+                    image_url
+                    address
+                    city
+                    state
+                    zip
+                    locations {
+                        id
+                        name
+                        description
+                        start_time
+                        end_time
+                        address
+                        city
+                        state
+                        zip
+                        valid_days
+                    }
+                    items {
+                        name
+                        price
+                        unit_of_measure
+                        category {
+                            id
+                            name
+                            image_url
+                        }
+                    }
+                    
+                }
+            }
+            }`;
+    try {
+        let token = (JSON.parse(localStorage.getItem('currentUser'))).token;
+        let vendorData = await queryGraphQLToken(queryVendor, token);
+        let {vendor} = vendorData.data.me;
+        console.log(vendor);
+        let payload = {
+            products: vendor.items,
+            locations: vendor.locations,
+            profile: vendor
+        };
+        dispatch({
+            type: updateVendorDataAC.toString(),
+            payload: payload
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 export const updateProductsAC = async (dispatch, type, id) => {
     console.log("yoyoaction");
     let querySearch = `{
@@ -250,6 +325,87 @@ export const createVendorAC = async (dispatch, userId) => {
         console.error(e);
     }
 }; 
+
+
+export const addProductAC = async (dispatch, product) => {
+    console.log("im inside");
+    let findVendorQuery = `{
+            me {
+                vendor {
+                    id
+                }
+            }
+            }`;
+    try {
+        let token = (JSON.parse(localStorage.getItem('currentUser'))).token;
+        let vendorId = await queryGraphQLToken(findVendorQuery, token);
+        console.dir(vendorId);
+        vendorId = vendorId.data.me.vendor.id;
+        let addMutation = `mutation {
+            addProduct (
+                    name: "${product.name}",
+                    description: "${product.description}",
+                    vendor_id: ${parseInt(vendorId,10)},
+                    category_id: ${parseInt(product.category_id,10)},
+                    unit_of_measure: "${product.unit_of_measure}",
+                    price: "${product.price}"
+                    )
+            }`
+        let payload = await queryGraphQL(addMutation);
+        dispatch({
+            type: addProductAC.toString(),
+            // payload: currentUser
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+export const addLocationAC = async (dispatch, product) => {
+    console.log("im inside!!!!!!!!!!!!!!!!!!!!!!");
+    let findVendorQuery = `{
+            me {
+                vendor {
+                    id
+                }
+            }
+            }`;
+    try {
+        let token = (JSON.parse(localStorage.getItem('currentUser'))).token;
+        let vendorId = await queryGraphQLToken(findVendorQuery, token);
+        console.dir(vendorId);
+        vendorId = vendorId.data.me.vendor.id;
+        let addMutation = `mutation {
+            addLocation (
+                    name: "${product.name}",
+                    description: "${product.description}",
+                    vendor_id: ${parseInt(vendorId, 10)},
+                    address: "${product.address}",
+                    city: "${product.city}",
+                    state: "${product.state}",
+                    zip: "${product.zip}",
+                    start_time: "${product.start_time}",
+                    end_time: "${product.end_time}",
+                    monday: "${product.monday}",
+                    tuesday: "${product.tuesday}",
+                    wednesday: "${product.wednesday}",
+                    thursday: "${product.thursday}",
+                    friday: "${product.friday}",
+                    saturday: "${product.saturday}",
+                    sunday: "${product.sunday}",
+                    lat: "${product.lat,10}",
+                    lng: "${product.lng}"  
+                    )
+            }`
+        let payload = await queryGraphQL(addMutation);
+        dispatch({
+            type: addLocationAC.toString(),
+            // payload: currentUser
+        });
+    } catch (e) {
+        console.error(e);
+    }
+}; 
     
 
 toggleMobileMenu.toString = () => 'TOGGLE_MOBILE_MENU';
@@ -262,3 +418,6 @@ updateUserLocationAC.toString = () => 'UPDATE_USER_LOCATION_AC';
 createAccountAC.toString = () => 'CREATE_ACCOUNT_AC';
 createVendorAC.toString = () => 'CREATE_VENDOR_AC';
 loginAccountAC.toString = () => 'LOGIN_ACCOUNT_AC';
+updateVendorDataAC.toString = () => 'UPDATE_VENDOR_DATA_AC';
+addProductAC.toString = () => 'ADD_PRODUCT_AC';
+addLocationAC.toString = () => 'ADD_LOCATION_AC';

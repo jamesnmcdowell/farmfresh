@@ -8,12 +8,15 @@ export let queryGraphQL = async (queryString) =>
     })).json();
 
 
-export let queryGraphQL2 = async (queryString) =>
-    await (await fetch('/graphql', {
+export let queryGraphQLToken = async (queryString, token) => {
+    console.log(token)
+    return await (await fetch('/graphql', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',
+                   'Authorization': `Bearer ${token} `},
         body: JSON.stringify({
-            mutation: queryString
+            query: queryString
         }),
     })).json();
 
+}

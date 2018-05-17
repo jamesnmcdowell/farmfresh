@@ -7,7 +7,10 @@ import {
     updateVendorByIdAC,
     updateUserLocationAC,
     createAccountAC,
-    createVendorAC
+    createVendorAC,
+    updateVendorDataAC,
+    addProductAC,
+    addLocationAC
 } from './actions';
 
 import db from '../db';
@@ -22,7 +25,10 @@ const initialState = {
     currentVendor: null,
     userLocation: null,
     currentUser: null,
-    isVendor: true    
+    isVendor: true,
+    vendorProfile: null,
+    vendorProducts: null,   
+    vendorLocations: null,  
 };
 
 const reducerRoutes = {
@@ -52,6 +58,15 @@ const reducerRoutes = {
     }),
     [createVendorAC]: (state, action) => ({
         ...state, currentUser: action.payload
+    }),
+    [updateVendorDataAC]: (state, action) => ({
+        ...state, vendorProfile: action.payload.profile, vendorProducts: action.payload.products, vendorLocations: action.payload.locations,  
+    }),
+    [addProductAC]: (state, action) => ({
+        ...state
+    }),
+    [addLocationAC]: (state, action) => ({
+        ...state
     }),
     default: (state, action) => state
 }
