@@ -49,6 +49,13 @@ export const updateVendorByIdAC = async (dispatch, id) => {
         vendor(id: ${id}) {
             id
             name
+            image_url
+            address
+            city
+            state
+            zip
+            about_description
+            product_description
             locations {
                 name
                 description
@@ -75,6 +82,63 @@ export const updateVendorByIdAC = async (dispatch, id) => {
         console.error(e);
     }
 };    
+
+export const updateItemByIdAC = async (dispatch, id) => {
+    let queryItemById = `{
+            item(id: ${id}) {
+            id
+            name
+            description
+            price
+            image_url
+            unit_of_measure
+            vendor {
+                id
+                name
+                items {
+                name
+                }
+                locations {
+                    name
+                    lat
+                    lng
+                    start_time
+                    end_time
+                    address
+                    city
+                    state
+                    zip
+                }
+                about_description
+                address
+                city
+                state
+                zip
+                image_url
+            }
+            category {
+                id
+                name
+                image_url
+                items {
+                name
+            }
+            }
+  
+        }
+        }`
+    try {
+        let payload = await queryGraphQL(queryItemById);
+        dispatch({
+            type: updateItemByIdAC.toString(),
+            payload: payload.data.item
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};    
+
+
 
     
 export const updateVendorDataAC = async (dispatch) => {
@@ -156,6 +220,7 @@ export const updateProductsAC = async (dispatch, type, id) => {
     console.log("yoyoaction");
     let querySearch = `{
         items {
+            id
             name
             price
             unit_of_measure
@@ -442,3 +507,4 @@ updateVendorDataAC.toString = () => 'UPDATE_VENDOR_DATA_AC';
 addProductAC.toString = () => 'ADD_PRODUCT_AC';
 addLocationAC.toString = () => 'ADD_LOCATION_AC';
 updateAllLocationsAC.toString = () => 'UPDATE_ALL_LOCATIONS_AC';
+updateItemByIdAC.toString = () => 'UPDATE_ITEM_BY_ID_AC';

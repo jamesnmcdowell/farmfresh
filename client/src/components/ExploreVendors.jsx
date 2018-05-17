@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LocationCard from './LocationCard';
 import { updateAllLocationsAC } from '../redux/actions';
 import Shell from './Shell';
+import MDSpinner from "react-md-spinner";
 
 class ExploreVendors extends Component {
     constructor(props) {
@@ -33,7 +34,7 @@ class ExploreVendors extends Component {
         return (
             <Shell>
                 <div className="product-list">
-                    {isLoading ? <h1> loading </h1> : allLocations.length > 0 ?
+                    {isLoading ? <div className="loading-spinner"> <MDSpinner size={50} singleColor="#FEC04A" color2="#673ab7" /> </div>: allLocations.length > 0 ?
                         allLocations.map((location, i) => <div key={`${location.id}_${i}`} location={location} > {location.name} {location.lat} {location.lng}</div>) :
                         <p>no locations found </p>
                     }

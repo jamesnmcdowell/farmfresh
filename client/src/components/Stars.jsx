@@ -1,7 +1,7 @@
 import React from 'react';
 
 let Stars = () =>
-    <div className="stars" data-stars="1" onClick={({ target }) => {
+    <div className="stars" data-stars="4" onClick={({ target }) => {
         while (!target.classList.contains('star')) target = target.parentElement;
         target.parentElement.setAttribute('data-stars', target.getAttribute('data-rating'));
     }}>

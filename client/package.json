@@ -8,10 +8,13 @@
     "react-click-outside": "tj/react-click-outside",
     "react-dom": "^16.3.2",
     "react-google-maps": "^9.4.5",
+    "react-md-spinner": "^0.2.5",
     "react-modal": "^3.4.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
+    "react-spinkit": "^3.0.0",
+    "react-spinners": "^0.3.2",
     "react-transition-group": "^2.3.1",
     "recompose": "^0.27.0",
     "redux": "^4.0.0"

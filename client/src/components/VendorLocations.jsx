@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LocationCard from './LocationCard';
 import { updateVendorDataAC } from '../redux/actions';
+import MDSpinner from "react-md-spinner";
 
 class VendorProducts extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class VendorProducts extends Component {
         if (!vendorLocations) vendorLocations = [];
         return (
             <div className="product-list">
-                {isLoading ? <h1> loading </h1> : vendorLocations.length > 0 ?
+                {isLoading ? <div className="loading-spinner"> <MDSpinner size={50} singleColor="#FEC04A" color2="#673ab7" /> </div> : vendorLocations.length > 0 ?
                     vendorLocations.map((product, i) => <LocationCard key={`${product.id}_${i}`} product={product} />) :
                     <p>no products found </p>
                 }

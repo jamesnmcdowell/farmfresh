@@ -21,9 +21,9 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, current
             <SearchBar menuOpen={menuOpen} toggleMobileMenu={toggleMobileMenu}/>
             {currentUser ?
             <div className="menu-links">
-                    <Link to="/vendors" className="nav-link">
+                    {/* <Link to="/vendors" className="nav-link">
                         <span>Explore Vendors </span>
-                    </Link>
+                    </Link> */}
                 {isVendor ?
                     
                     <Link to="/vendor/profile" className="nav-link">
@@ -53,9 +53,9 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, current
             </div>
                         :
             <div className="menu-links">
-                <Link to="/vendors" className="nav-link">
+                {/* <Link to="/vendors" className="nav-link">
                     <span>Explore Vendors </span>
-                </Link>
+                </Link> */}
                 <Link to="/become-a-vendor" className="nav-link">
                     <span> Become a Vendor</span>
                 </Link>

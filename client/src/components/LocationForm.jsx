@@ -165,7 +165,7 @@ export const ProductForm = ({ state, handleSubmit, handleChange, history, dispat
             </option>
         </select>                 
         <br />
-        <label> Lattitude </label>
+        <label> Latitude </label>
         <div>
             <input
                 type="text"
@@ -206,7 +206,7 @@ export const ProductForm = ({ state, handleSubmit, handleChange, history, dispat
                     lat: state.lat,
                     lng: state.lng   
                 })
-                // .then(() => { state.toggleForm(false); })
+                .then(() => { state.toggleForm(false); })
             }> Create Account</button>
     </form>
 

@@ -46,7 +46,7 @@ let MobileMenu = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, cur
                 </a>
             </li>   
             <li>
-                <div className="anchor-actions">
+                <div onClick={() => { localStorage.removeItem('currentUser');  toggleMobileMenu(); }} className="anchor-actions">
                     <span>Log out</span>
                 </div>
             </li>  
