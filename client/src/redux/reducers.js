@@ -10,7 +10,8 @@ import {
     createVendorAC,
     updateVendorDataAC,
     addProductAC,
-    addLocationAC
+    addLocationAC,
+    updateAllLocationsAC
 } from './actions';
 
 import db from '../db';
@@ -28,7 +29,8 @@ const initialState = {
     isVendor: true,
     vendorProfile: null,
     vendorProducts: null,   
-    vendorLocations: null,  
+    vendorLocations: null, 
+    allLocations: null 
 };
 
 const reducerRoutes = {
@@ -67,6 +69,9 @@ const reducerRoutes = {
     }),
     [addLocationAC]: (state, action) => ({
         ...state
+    }),
+    [updateAllLocationsAC]: (state, action) => ({
+        ...state, allLocations: action.payload
     }),
     default: (state, action) => state
 }

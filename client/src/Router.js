@@ -12,6 +12,7 @@ import VendorSignupScreen from './components/VendorSignupScreen';
 import VendorLocationsScreen from './components/VendorLocationsScreen';
 import VendorProductsScreen from './components/VendorProductsScreen';
 import VendorProfile from './components/VendorProfile';
+import ExploreVendors from './components/ExploreVendors';
 
 
 let Router = () =>
@@ -25,6 +26,7 @@ let Router = () =>
             <Route path="/vendor/profile" exact component={VendorProfile} />
             <Route path="/vendor/products" exact component={VendorProductsScreen} />
             <Route path="/vendor/locations" exact component={VendorLocationsScreen} />
+            <Route path="/vendors" exact component={ExploreVendors} />
 
 
         </Switch>

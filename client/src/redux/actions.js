@@ -406,6 +406,26 @@ export const addLocationAC = async (dispatch, product) => {
         console.error(e);
     }
 }; 
+
+export const updateAllLocationsAC = async (dispatch, id) => {
+    let queryAllLocations = `{
+                locations {
+                    id
+                    name
+                    lat
+                    lng
+                    }  
+                }`;
+    try {
+        let vendors = await queryGraphQL(queryAllLocations);
+        dispatch({
+            type: updateAllLocationsAC.toString(),
+            payload: vendors.data.locations
+        });
+    } catch (e) {
+        console.error(e);
+    }
+};    
     
 
 toggleMobileMenu.toString = () => 'TOGGLE_MOBILE_MENU';
@@ -421,3 +441,4 @@ loginAccountAC.toString = () => 'LOGIN_ACCOUNT_AC';
 updateVendorDataAC.toString = () => 'UPDATE_VENDOR_DATA_AC';
 addProductAC.toString = () => 'ADD_PRODUCT_AC';
 addLocationAC.toString = () => 'ADD_LOCATION_AC';
+updateAllLocationsAC.toString = () => 'UPDATE_ALL_LOCATIONS_AC';
