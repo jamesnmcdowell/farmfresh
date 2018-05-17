@@ -22,7 +22,7 @@ let Header = ({ menuOpen, toggleMobileMenu, toggleLoginModal, checkForm, current
             {currentUser ?
             <div className="menu-links">
                 {isVendor ?
-                    <Link to="/vendor" className="nav-link">
+                    <Link to="/vendor/profile" className="nav-link">
                         <span> Vendor Dashboard </span>
                     </Link>    
                 :

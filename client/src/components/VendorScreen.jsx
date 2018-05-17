@@ -12,8 +12,6 @@ class VendorScreen extends Component {
     async componentDidMount() {
         let {id } = this.props.match.params;
         updateVendorByIdAC(this.props.dispatch, id);
-
-
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.state.isLoading && this.props.products.length > 0) {

@@ -424,7 +424,7 @@ input:focus {
 
 .product-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   grid-gap: 1rem;
   padding: 2em;
 }
@@ -519,8 +519,47 @@ input:focus {
 
 
 
+/* ----- admin dashboard ------ */
 
 
+.vendor-profile-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.vendor-nav-container {
+  
+}
+.vendor-nav-links {
+  justify-content: center;
+  display: flex;
+  border-bottom: 1px solid #f0f0f0;
+  border-top: 1px solid #f0f0f0;
+  padding: 1em 0;
+}
+.vendor-nav-links a {
+  border-right: 1px solid #606060;
+}
+.vendor-nav-links a:last-child {
+  border-right: none;
+  
+}
+.vendor-nav-links button {
+  padding: .5em .5em;
+  font-size: 1em;
+  margin-right: 10px; 
+  border: none;
+  cursor: pointer;
+}
+.vendor-nav-links button:focus {outline:0;}
+
+.vendor-dashboard-add {
+  margin-top: 1em;
+  display: flex;
+  justify-content: center;
+}
 
 
 
