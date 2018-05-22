@@ -1,6 +1,6 @@
 # farmfresh
 
-> farmfresh is a platform that enbales local farms to connect directly with customers.
+> farmfresh is a platform that enables local farms to connect directly with customers.
 <br>
 
 ![farmfresh](https://user-images.githubusercontent.com/19500679/40376850-699d8690-5dbd-11e8-96a3-412d47018bbb.jpg)
